@@ -1,4 +1,11 @@
 public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/minecraft/world/entity/PathfinderMob {
+    private static final DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
+
+    private health int
+    private age int
+    private itemAge int
+    public final bobOffs float
+
     public <init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V {
         aload 0
         aload 1
@@ -8,6 +15,30 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/min
         aload 0
         iconst 0
         putfield io/github/lukebemish/walkingitems/WalkingItemEntity.xpReward int
+
+        aload 0
+        iconst 5
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.health int
+
+        aload 0
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        getstatic java/lang/Math.PI D
+        d2f
+        fmul
+        ldc 2.0
+        fmul
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.bobOffs F
+
+        return
+    }
+
+    public <clinit>()V {
+        ldc io/github/lukebemish/walkingitems/WalkingItemEntity
+        getstatic net/minecraft/network/syncher/EntityDataSerializers.ITEM_STACK net/minecraft/network/syncher/EntityDataSerializer
+        invokestatic net/minecraft/network/syncher/SynchedEntityData.defineId(java/lang/Class,net/minecraft/network/syncher/EntityDataSerializer)net/minecraft/network/syncher/EntityDataAccessor
+        putstatic io/github/lukebemish/walkingitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
 
         return
     }
@@ -25,4 +56,263 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/min
 
         return
     }
+
+    protected defineSynchedData()V {
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getEntityData()net/minecraft/network/syncher/SynchedEntityData
+        getstatic io/github/lukebemish/walkingitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
+        getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/network/syncher/SynchedEntityData.define(net/minecraft/network/syncher/EntityDataAccessor,java/lang/Object)V
+
+        return
+    }
+
+    public getItem()net/minecraft/world/item/ItemStack {
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getEntityData()net/minecraft/network/syncher/SynchedEntityData
+        getstatic io/github/lukebemish/walkingitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
+        invokevirtual net/minecraft/network/syncher/SynchedEntityData.get(net/minecraft/network/syncher/EntityDataAccessor)java/lang/Object
+        checkcast net/minecraft/world/item/ItemStack
+        areturn
+    }
+
+    public setItem(net/minecraft/world/item/ItemStack)V {
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getEntityData()net/minecraft/network/syncher/SynchedEntityData
+        getstatic io/github/lukebemish/walkingitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
+        aload 1
+        invokevirtual net/minecraft/network/syncher/SynchedEntityData.set(Lnet/minecraft/network/syncher/EntityDataAccessor,java/lang/Object)V
+        return
+    }
+
+    public getAddEntityPacket()net/minecraft/network/protocol/Packet {
+        new net/minecraft/network/protocol/game/ClientboundAddEntityPacket
+        dup
+        aload 0
+        invokespecial net/minecraft/network/protocol/game/ClientboundAddEntityPacket.<init>(net/minecraft/world/entity/Entity)V
+        areturn
+    }
+
+    public getAge()I {
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.age I
+        ireturn
+    }
+
+    public fireImmune()Z {
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+        invokevirtual net/minecraft/world/item/Item.isFireResistant()Z
+        ifne break
+        aload 0
+        invokespecial net/minecraft/world/entity/Entity.fireImmune()Z
+        ireturn
+
+        break:
+        iconst 1
+        ireturn
+    }
+
+    public hurt(net/minecraft/world/damagesource/DamageSource,float)Z {
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        getfield net/minecraft/world/level/Level.isClientSide Z
+        ifne none
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.isRemoved()Z
+        ifne none
+
+        aload 0
+        aload 1
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.isInvulnerableTo(net/minecraft/world/damagesource/DamageSource)Z
+        ifne none
+
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+        aload 1
+        invokevirtual net/minecraft/world/item/Item.canBeHurtBy(net/minecraft/world/damagesource/DamageSource)Z
+        ifeq none
+
+        aload 0
+        dup
+        dup
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.markHurt()V
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.health I
+        i2f
+        fload 2
+        fsub
+        f2i
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.health i
+
+        aload 0
+        getstatic net/minecraft/world/level/gameevent/GameEvent.ENTITY_DAMAGE net/minecraft/world/level/gameevent/GameEvent
+        aload 1
+        invokevirtual net/minecraft/world/damagesource/DamageSource.getEntity()net/minecraft/world/entity/Entity
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.gameEvent(net/minecraft/world/level/gameevent/GameEvent,net/minecraft/world/entity/Entity)V
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.health I
+        ifgt out
+
+        // Do logic to revert to item here
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.discard()V
+
+        out:
+        iconst 1
+        ireturn
+
+        none:
+        iconst 0
+        ireturn
+    }
+
+    public addAdditionalSaveData(net/minecraft/nbt/CompoundTag)V {
+        aload 1
+        ldc "Health"
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.health I
+        i2s
+        invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
+
+        aload 1
+        ldc "Age"
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.age I
+        i2s
+        invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
+
+        aload 1
+        ldc "ItemAge"
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.itemAge I
+        i2s
+        invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
+
+        aload 1
+        ldc "Item"
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        new net/minecraft/nbt/CompoundTag
+        dup
+        invokespecial net/minecraft/nbt/CompoundTag.<init>()V
+        invokevirtual net/minecraft/workd/item/ItemStack.save(net/minecraft/nbt/CompoundTag)net/minecraft/nbt/CompoundTag
+        invokevirtual net/minecraft/nbt/CompoundTag.put(java/lang/String,net/minecraft/nbt/Tag)net/minecraft/nbt/Tag
+        pop
+        return
+    }
+
+    public readAdditionalSaveData(net/minecraft/nbt/CompoundTag)V {
+        aload 0
+        aload 1
+        ldc "Health"
+        invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.health I
+
+        aload 0
+        aload 1
+        ldc "Age"
+        invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.age I
+
+        aload 0
+        aload 1
+        ldc "ItemAge"
+        invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.itemAge I
+
+        aload 0
+        aload 1
+        ldc "Item"
+        invokevirtual net/minecraft/nbt/CompoundTag.getCompound(java/lang/String)net/minecraft/nbt/CompoundTag
+
+        invokestatic net/minecraft/world/item/ItemStack.of(net/minecraft/nbt/CompoundTag)net/minecraft/world/item/ItemStack
+        dup
+        aload 0
+        swap
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.setItem(net/minecraft/world/item/ItemStack)V
+
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        ifeq out
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.discard()V
+
+        out:
+        return
+    }
+
+    public getName()net/minecraft/network/chat/Component {
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getCustomName()net/minecraft/network/chat/Component
+        dup
+        ifnull skip
+        areturn
+
+        skip:
+        pop
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.getDescriptionId()java/lang/String
+        invokestatic net/minecraft/network/chat/Component.translatable(java/lang/String)net/minecraft/network/chat/MutableComponent
+        areturn
+    }
+
+    public isAttackable()Z {
+        iconst 0
+        ireturn
+    }
+
+    public onSyncedDataUpdated(net/minecraft/network/syncher/EntityDataAccessor)V {
+        aload 0
+        aload 1
+        invokespecial net/minecraft/world/entity/Entity.onSyncedDataUpdated(net/minecraft/network/syncher/EntityDataAccessor)V
+        getstatic io/github/lukebemish/walkingitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
+        aload 1
+        invokevirtual net/minecraft/network/syncher/EntityDataAccessor.equals(java/lang/Object)Z
+        ifeq out
+        aload 0
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        aload 0
+        invokevirtual net/minecraft/world/item/ItemStack.setEntityRepresentation(net/minecraft/world/entity/Entity)V
+
+        out:
+        return
+    }
+
+    public getSoundSource()net/minecraft/sounds/SoundSource {
+        getstatic net/minecraft/sounds/SoundSource.AMBIENT net/minecraft/sounds/SoundSource
+        areturn
+    }
+
+    public getVisualRotationYInDegrees()F {
+        ldc 180.0
+        aload 0
+        ldc 0.5
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getSpin(F)F
+        getstatic java/lang/Math.PI D
+        d2f
+        ldc 2.0
+        fmul
+        fdiv
+        ldc 360.0
+        fmul
+        fsub
+        freturn
+    }
+
+    public getSpin(F)F {
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.age I
+        i2f
+        fload 1
+        fadd
+        ldc 20.0
+        fdiv
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.bobOffs F
+        fadd
+        freturn
+    }
+
 }

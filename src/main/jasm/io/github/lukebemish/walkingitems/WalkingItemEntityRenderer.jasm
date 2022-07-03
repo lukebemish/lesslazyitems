@@ -1,0 +1,309 @@
+public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends net/minecraft/client/renderer/entity/EntityRenderer {
+
+    private final itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+    private final random net/minecraft/util/RandomSource
+
+    public <init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V {
+        aload 0
+        aload 1
+        invokespecial net/minecraft/client/renderer/entity/EntityRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V
+
+        aload 0
+        dup
+        dup
+        aload 1
+        invokevirtual net/minecraft/client/renderer/entity/EntityRendererProvider$Context.getItemRenderer()net/minecraft/client/renderer/entity/ItemRenderer
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        ldc 0.15
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowRadius F
+        ldc 0.75
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowStrength F
+
+        aload 0
+        invokestatic net/minecraft/util/RandomSource.create()net/minecraft/util/RandomSource
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+    }
+
+    protected getRenderAmount(net/minecraft/world/item/ItemStack)I {
+        aload 1
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        dup
+        dup
+        dup
+        bipush 48
+        if_icmpgt skip5
+        bipush 32
+        if_icmpgt skip4
+        bipush 16
+        if_icmpgt skip3
+        bipush 1
+        if_icmpgt skip2
+        iconst 1
+        ireturn
+
+        skip5:
+        iconst 5
+        ireturn
+        skip4:
+        iconst 4
+        ireturn
+        skip3:
+        iconst 3
+        ireturn
+        skip2:
+        iconst 2
+        ireturn
+    }
+
+    public render(io/github/lukebemish/walkingitems/WalkingItemEntity,F,F,com/mojang/blaze3d/vertex/PoseStack,net/minecraft/client/renderer/MultiBufferSource,I)V {
+        aload 4
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.pushPose()V
+        aload 1
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        dup
+        astore 7
+        // a7 - itemStack
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        swap
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        ifeq skip1
+        sipush 187
+        goto after1
+        skip1:
+        aload 7
+        invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+        invokestatic net/minecraft/world/item/Item.getId(net/minecraft/world/item/Item)I
+        aload 7
+        invokevirtual net/minecraft/world/item/ItemStack.getDamageValue()I
+        iadd
+        after1:
+        i2l
+        invokeinterface net/minecraft/util/RandomSource.setSeed(J)V
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        aload 7
+        aload 1
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        aconst_null
+        aload 1
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getId()I
+        invokevirtual net/minecraft/client/renderer/entity/ItemRenderer.getModel(net/minecraft/world/item/ItemStack,net/minecraft/world/level/Level,net/minecraft/world/entity/LivingEntity,I)net/minecraft/client/resources/model/BakedModel
+        dup
+        astore 8
+        // a8 bakedModel
+
+        invokeinterface net/minecraft/client/resources/model/BakedModel.isGui3d()Z
+        istore 9
+        // i9 isGui3D
+
+        aload 0
+        aload 7
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.getRenderAmount(net/minecraft/world/item/ItemStack)I
+        istore 10
+        // i10 num to render
+
+        aload 1
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.getAge()I
+        i2f
+        fload 3
+        fadd
+        ldc 10.0
+        fdiv
+        aload 1
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.bobOffs F
+        fadd
+        invokestatic net/minecraft/util/Mth.sin(F)F
+        ldc 0.1
+        fmul
+        ldc 0.1
+        fadd
+        fstore 11
+        // f11 offset 1
+
+        aload 4
+        dconst 0
+        ldc 0.25
+        fload 11
+        fmul
+        f2d
+        dconst 0
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
+
+        aload 4
+        aload 1
+        fload 3
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getSpin(F)F
+        getstatic com/mojang/math/Vector3f.YP com/mojand/math/Vector3f
+        swap
+        invokevirtual com/mojang/math/Vector3f.rotation(F)com/mojang/math/Quaternion
+        invokevirtual com/mojang/blaze3d/PoseStack.mulPose(com/mojang/math/Quaternion)V
+
+        iload 9
+        ifne skip2
+        aload 4
+        dconst 0
+        dconst 0
+        ldc -0.09375
+        iload 10
+        iconst 1
+        isub
+        i2f
+        fmul
+        ldc 0.5
+        fmul
+        f2d
+        invokevirtual com/mojang/blaze3d/PoseStack.translate(D,D,D)V
+        skip2:
+
+        iconst 0
+        istore 12
+
+        loop1:
+        iload 12 // iter
+        iload 10 // amount
+        if_icmpge break1
+        aload 4
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.pushPose()V
+
+        aload 4
+
+        iload 9 // isGui3d
+        ifne skip4
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        ldc 2.0
+        fmul
+        fconst 1
+        fsub
+        ldc 0.15
+        fmul
+        ldc 0.5
+        fmul
+        f2d
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        ldc 2.0
+        fmul
+        fconst 1
+        fsub
+        ldc 0.15
+        fmul
+        ldc 0.5
+        fmul
+        f2d
+
+        dconst 0
+
+        goto after2
+
+        skip4:
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        ldc 2.0
+        fmul
+        fconst 1
+        fsub
+        ldc 0.15
+        fmul
+        f2d
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        ldc 2.0
+        fmul
+        fconst 1
+        fsub
+        ldc 0.15
+        fmul
+        f2d
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        invokeinterface net/minecraft/util/RandomSource.nextFloat()F
+        ldc 2.0
+        fmul
+        fconst 1
+        fsub
+        ldc 0.15
+        fmul
+        f2d
+
+        after2:
+
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
+
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        aload 7
+        getstatic net/minecraft/client/renderer/block/model/ItemTransforms$TransformType.GROUND net/minecraft/client/renderer/block/model/ItemTransforms$TransformType
+        iconst 0
+        aload 4
+        aload 4
+        iload 6
+        getstatic net/minecraft/client/renderer/texture/OverlayTexture.NO_OVERLAY net/minecraft/client/renderer/texture/OverlayTexture
+        aload 8
+        invokevirtual net/minecraft/client/renderer/entity/ItemRenderer.render(
+            net/minecraft/world/item/ItemStack,
+            net/minecraft/client/renderer/block/model/ItemTransforms$TransformType,
+            Z,
+            com/mojang/blaze3d/vertex/PoseStack,
+            net/minecraft/client/renderer/MultiBufferSource,
+            I,
+            I,
+            net/minecraft/client/resources/model/BakedModel)V
+
+        aload 4
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.popPose()V
+
+        iload 9
+        ifne skip5
+        aload 4
+        dconst 0
+        dconst 0
+        ldc 0.09375
+        f2d
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
+
+        skip5:
+
+        iinc 12[1]
+
+        goto loop1
+        break1:
+
+        aload 4
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.popPose()V
+
+        aload 0
+        aload 1
+        fload 2
+        fload 3
+        aload 4
+        aload 5
+        iload 6
+
+        invokespecial net/minecraft/client/renderer/entity/EntityRenderer.render(
+            net/minecraft/world/entity/Entity,
+            F,
+            F,
+            com/mojang/blaze3d/vertex/PoseStack,
+            net/minecraft/client/renderer/MultiBufferSource,
+            I)V
+
+        return
+    }
+
+    public getTextureLocation(io/github/lukebemish/walkingitems/WalkingItemEntity)net/minecraft/resources/ResourceLocation {
+        getstatic net/minecraft/client/renderer/texture/TextureAtlas.LOCATION_BLOCKS net/minecraft/resources/ResourceLocation
+        areturn
+    }
+}
