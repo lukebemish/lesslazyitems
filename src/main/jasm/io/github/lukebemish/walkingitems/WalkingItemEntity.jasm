@@ -1,0 +1,28 @@
+public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/minecraft/world/entity/PathfinderMob {
+    public <init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V {
+        aload 0
+        aload 1
+        aload 2
+        invokespecial net/minecraft/world/entity/PathfinderMob.<init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V
+
+        aload 0
+        iconst 0
+        putfield io/github/lukebemish/walkingitems/WalkingItemEntity.xpReward int
+
+        return
+    }
+
+    protected registerGoals()V {
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.goalSelector net/minecraft/world/entity/ai/goal/GoalSelector
+        iconst 1
+        new io/github/lukebemish/walkingitems/GoToCollectorGoal
+        dup
+        aload 0
+        dconst 1
+        invokespecial io/github/lukebemish/walkingitems/GoToCollectorGoal.<init>(io/github/lukebemish/walkingitems/WalkingItemEntity,double)V
+        invokevirtual net/minecraft/world/entity/ai/goal/GoalSelector.addGoal(int,net/minecraft/world/entity/ai/goal/Goal)V
+
+        return
+    }
+}

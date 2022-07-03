@@ -8,20 +8,22 @@ plugins {
 }
 
 version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'modid'
+group = 'io.github.lukebemish.walkingitems'
+archivesBaseName = 'walkingitems'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-sourceSets {
-    dummy {
-        java {
-            classesDirectory.set(file('build/classes/jasm/main'))
-            setSrcDirs([])
+task copyJasmOutput {
+    doLast {
+        copy {
+            from 'build/classes/jasm'
+            into 'build/classes/java'
         }
     }
 }
+
+copyJasmOutput.dependsOn assembleJasm
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
@@ -61,12 +63,11 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'walkingitems'
 
             mods {
-                examplemod {
+                walkingitems {
                     source sourceSets.main
-                    source sourceSets.dummy
                 }
             }
         }
@@ -78,12 +79,11 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'walkingitems'
 
             mods {
-                examplemod {
+                walkingitems {
                     source sourceSets.main
-                    source sourceSets.dummy
                 }
             }
         }
@@ -98,12 +98,11 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'examplemod'
+            property 'forge.enabledGameTestNamespaces', 'walkingitems'
 
             mods {
-                examplemod {
+                walkingitems {
                     source sourceSets.main
-                    source sourceSets.dummy
                 }
             }
         }
@@ -116,12 +115,11 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'walkingitems', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                walkingitems {
                     source sourceSets.main
-                    source sourceSets.dummy
                 }
             }
         }
@@ -167,16 +165,15 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "examplemod",
-                "Specification-Vendor"    : "examplemodsareus",
+                "Specification-Title"     : "walkingitems",
+                "Specification-Vendor"    : "walkingitemssareus",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Vendor"   : "walkingitemssareus",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    from sourceSets.dummy.output
 }
 
 idea {
@@ -185,7 +182,10 @@ idea {
     }
 }
 
-tasks.getByName("idea").dependsOn assembleJasm
+tasks.getByName("idea").dependsOn copyJasmOutput
+tasks.withType(JavaCompile).configureEach {
+    it.dependsOn copyJasmOutput
+}
 
 // Example configuration to allow publishing using the maven-publish plugin
 // This is the preferred method to reobfuscate your jar file

@@ -1,0 +1,8 @@
+public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraft/world/item/Item {
+    public <init>(net/minecraft/world/item/Item$Properties)V {
+        aload 0
+        aload 1
+        invokespecial net/minecraft/world/item/Item.<init>(net/minecraft/world/item/Item$Properties)V
+        return
+    }
+}
