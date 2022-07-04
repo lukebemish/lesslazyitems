@@ -1,0 +1,31 @@
+public class io/github/lukebemish/walkingitems/WalkingItemsClient {
+    private <init>()V {
+        aload 0
+        invokespecial java/lang/Object.<init>()V
+        return
+    }
+
+    public static registerRenderers(net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V {
+        aload 0
+        getstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        invokeinterface java/util/function/Supplier.get()java/lang/Object
+        checkcast net/minecraft/world/entity/EntityType
+        invokedynamic create()net/minecraft/client/renderer/entity/EntityRendererProvider {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)net/minecraft/client/renderer/entity/EntityRenderer,
+                newinvokespecial io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V,
+                (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)io/github/lukebemish/walkingitems/WalkingItemEntityRenderer
+            ]
+        }
+        invokevirtual net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers.registryEntityRenderer(net/minecraft/world/entity/EntityType,net/minecraft/client/renderer/entity/EntityRendererProvider)V
+        return
+    }
+}

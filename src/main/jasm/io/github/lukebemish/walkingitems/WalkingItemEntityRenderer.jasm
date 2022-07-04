@@ -58,14 +58,13 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
     public render(io/github/lukebemish/walkingitems/WalkingItemEntity,F,F,com/mojang/blaze3d/vertex/PoseStack,net/minecraft/client/renderer/MultiBufferSource,I)V {
         aload 4
         invokevirtual com/mojang/blaze3d/vertex/PoseStack.pushPose()V
+        aload 0
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         aload 1
         invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
         dup
         astore 7
         // a7 - itemStack
-        aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
-        swap
         invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
         ifeq skip1
         sipush 187
