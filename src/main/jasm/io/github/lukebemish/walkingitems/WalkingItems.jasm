@@ -52,7 +52,7 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
 
         skip1:
 
-        getstatic net/minecraftforge/common/MinecraftForge.EVENT_BUS net/minecraftforge/eventbus/api/IEventBus
+        aload 1
         invokedynamic accept()java/util/function/Consumer {
             invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
                 java/lang/invoke/MethodHandles$Lookup,

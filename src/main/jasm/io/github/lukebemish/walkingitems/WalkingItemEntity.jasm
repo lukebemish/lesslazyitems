@@ -29,6 +29,24 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/min
         return
     }
 
+    public <init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V {
+        aload 0
+        getstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        invokeinterface java/util/function/Supplier.get()java/lang/Object
+        checkcast net/minecraft/world/entity/EntityType
+        aload 1
+        invokespecial io/github/lukebemish/walkingitems/WalkingItemEntity.<init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V
+
+        aload 0
+        aload 2
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.setItem(net/minecraft/world/item/ItemStack)V
+        aload 2
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.discard()V
+
+        return
+    }
+
     public static <clinit>()V {
         ldc io/github/lukebemish/walkingitems/WalkingItemEntity
         getstatic net/minecraft/network/syncher/EntityDataSerializers.ITEM_STACK net/minecraft/network/syncher/EntityDataSerializer
@@ -182,7 +200,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntity extends net/min
         aload 0
         invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
         invokevirtual net/minecraft/world/item/ItemStack.getDescriptionId()java/lang/String
-        invokestatic net/minecraft/network/chat/Component.translatable(java/lang/String)net/minecraft/network/chat/MutableComponent
+        invokestatic* net/minecraft/network/chat/Component.translatable(java/lang/String)net/minecraft/network/chat/MutableComponent
         areturn
     }
 

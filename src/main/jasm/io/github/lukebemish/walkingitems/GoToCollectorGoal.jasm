@@ -23,7 +23,7 @@ public class io/github/lukebemish/walkingitems/GoToCollectorGoal extends net/min
         aload 2
         invokeinterface net/minecraft/world/level/LevelReader.getBlockState(net/minecraft/core/BlockPos)net/minecraft/world/level/block/state/BlockState
         getstatic io/github/lukebemish/walkingitems/WalkingItems.COLLECTORS net/minecraft/tags/TagKey
-        invokevirtual net/minecraft/world/level/block/state/BlockBehavior.is(net/minecraft/tags/TagKey)Z
+        invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
         goto out
 
         invalid:
