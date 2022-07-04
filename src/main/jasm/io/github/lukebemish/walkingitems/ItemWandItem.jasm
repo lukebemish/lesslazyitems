@@ -5,4 +5,91 @@ public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraf
         invokespecial net/minecraft/world/item/Item.<init>(net/minecraft/world/item/Item$Properties)V
         return
     }
+
+    public static convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V {
+        aload 0
+        ldc net/minecraft/world/entity/item/ItemEntity
+        new net/minecraft/world/phys/Vec3
+        dup
+        aload 1
+        invokespecial net/minecraft/world/phys/Vec3.<init>(net/minecraft/core/BlockPos)V
+        ldc 10
+        i2d
+        ldc 10
+        i2d
+        ldc 10
+        i2d
+        invokestatic net/minecraft/world/phys/AABB.ofSize(net/minecraft/world/phys/Vec3,D,D,D)net/minecraft/world/phys/AABB
+        invokedynamic test()java/util/function/Predicate {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (java/lang/Object)Z,
+                invokestatic io/github/lukebemish/walkingitems/ItemWandItem.lambda0(java/lang/Object)Z,
+                (java/lang/Object)Z
+            ]
+        }
+        invokeinterface net/minecraft/world/level/EntityGetter.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB,java/util/function/Predicate)java/util/List
+        invokeinterface java/lang/Iterable.iterator()java/util/Iterator
+        astore 2
+        loop:
+        aload 2
+        invokeinterface java/util/Iterator.hasNext()Z
+        ifne break
+        aload 2
+        invokeinterface java/util/Iterator.next()java/lang/Object
+        checkcast net/minecraft/world/entity/item/ItemEntity
+        astore 3
+
+        new net/minecraft/core/BlockPos
+        dup
+        aload 3
+        fconst 0
+        f2d
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.getPosition(D)net/minecraft/world/phys/Vec3
+        invokespecial net/minecraft/core/BlockPos.<init>(net/minecraft/world/phys/Vec3)V
+        astore 4
+
+        aload 0
+        new io/github/lukebemish/walkingitems/WalkingItemEntity
+        dup
+        dup
+        aload 0
+        aload 3
+        invokespecial io/github/lukebemish/walkingitems/WalkingItemEntity.<init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V
+        aload 4
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.setPos(net/minecraft/world/phys/Vec3)V
+
+        invokeinterface net/minecraft/world/level/LevelWriter.addFreshEntity(net/minecraft/world/entity/Entity)Z
+        pop
+
+        goto loop
+
+        break:
+        return
+    }
+
+    public synthetic lambda0(java/lang/Object)Z {
+        iconst 1
+        ireturn
+    }
+
+    public useOn(net/minecraft/world/item/context/UseOnContext)net/minecraft/world/InteractionResult {
+        aload 1
+        invokevirtual net/minecraft/world/item/context/UseOnContext.getLevel()net/minecraft/world/level/Level
+        dup
+        aload 1
+        invokevirtual net/minecraft/world/item/context/UseOnContext.getClickedPos()net/minecraft/core/BlockPos
+        invokestatic io/github/lukebemish/walkingitems/ItemWandItem.converNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V
+
+        invokevirtual net/minecraft/world/level/Level.isClientSide()Z
+        invokestatic net/minecraft/world/InteractionResult.sidedSuccess(Z)net/minecraft/world/InteractionResult
+        areturn
+    }
 }
