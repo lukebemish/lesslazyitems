@@ -1,4 +1,4 @@
-public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraft/world/item/Item {
+public class io/github/lukebemish/lesslazyitems/ItemWandItem extends net/minecraft/world/item/Item {
     public <init>(net/minecraft/world/item/Item$Properties)V {
         aload 0
         aload 1
@@ -9,15 +9,13 @@ public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraf
     public static convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V {
         aload 0
         ldc net/minecraft/world/entity/item/ItemEntity
-        new net/minecraft/world/phys/Vec3
-        dup
         aload 1
-        invokespecial net/minecraft/world/phys/Vec3.<init>(net/minecraft/core/BlockPos)V
-        ldc 10
+        invokestatic net/minecraft/world/phys/Vec3.atCenterOf(net/minecraft/core/Vec3i)net/minecraft/world/phys/Vec3
+        ldc 7
         i2d
-        ldc 10
+        ldc 7
         i2d
-        ldc 10
+        ldc 7
         i2d
         invokestatic net/minecraft/world/phys/AABB.ofSize(net/minecraft/world/phys/Vec3,D,D,D)net/minecraft/world/phys/AABB
         invokedynamic test()java/util/function/Predicate {
@@ -31,43 +29,43 @@ public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraf
             )java/lang/invoke/CallSite
             [
                 (java/lang/Object)Z,
-                invokestatic io/github/lukebemish/walkingitems/ItemWandItem.lambda0(java/lang/Object)Z,
+                invokestatic io/github/lukebemish/lesslazyitems/ItemWandItem.lambda0(java/lang/Object)Z,
                 (java/lang/Object)Z
             ]
         }
         invokeinterface net/minecraft/world/level/EntityGetter.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB,java/util/function/Predicate)java/util/List
+
         invokeinterface java/lang/Iterable.iterator()java/util/Iterator
         astore 2
         loop:
         aload 2
         invokeinterface java/util/Iterator.hasNext()Z
-        ifne break
+        ifeq break
         aload 2
         invokeinterface java/util/Iterator.next()java/lang/Object
         checkcast net/minecraft/world/entity/item/ItemEntity
         astore 3
 
-        new net/minecraft/core/BlockPos
-        dup
         aload 3
-        fconst 0
-        f2d
-        invokevirtual net/minecraft/world/entity/item/ItemEntity.getPosition(D)net/minecraft/world/phys/Vec3
-        invokespecial net/minecraft/core/BlockPos.<init>(net/minecraft/world/phys/Vec3)V
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.position()net/minecraft/world/phys/Vec3
         astore 4
 
         aload 0
-        new io/github/lukebemish/walkingitems/WalkingItemEntity
+        new io/github/lukebemish/lesslazyitems/WalkingItemEntity
         dup
         dup
         aload 0
         aload 3
-        invokespecial io/github/lukebemish/walkingitems/WalkingItemEntity.<init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V
+        invokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntity.<init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V
         aload 4
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.setPos(net/minecraft/world/phys/Vec3)V
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.setPos(net/minecraft/world/phys/Vec3)V
 
         invokeinterface net/minecraft/world/level/LevelWriter.addFreshEntity(net/minecraft/world/entity/Entity)Z
         pop
+
+        //getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.LOGGER org/slf4j/Logger
+        //ldc "Converted"
+        //invokeinterface org/slf4j/Logger.info(java/lang/String)V
 
         goto loop
 
@@ -75,7 +73,7 @@ public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraf
         return
     }
 
-    public synthetic lambda0(java/lang/Object)Z {
+    public static synthetic lambda0(java/lang/Object)Z {
         iconst 1
         ireturn
     }
@@ -83,13 +81,20 @@ public class io/github/lukebemish/walkingitems/ItemWandItem extends net/minecraf
     public useOn(net/minecraft/world/item/context/UseOnContext)net/minecraft/world/InteractionResult {
         aload 1
         invokevirtual net/minecraft/world/item/context/UseOnContext.getLevel()net/minecraft/world/level/Level
+        astore 2
+        aload 2
+        invokevirtual net/minecraft/world/level/Level.isClientSide()Z
         dup
+        ifne skip
+        aload 2
         aload 1
         invokevirtual net/minecraft/world/item/context/UseOnContext.getClickedPos()net/minecraft/core/BlockPos
-        invokestatic io/github/lukebemish/walkingitems/ItemWandItem.converNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V
+        invokestatic io/github/lukebemish/lesslazyitems/ItemWandItem.convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V
 
-        invokevirtual net/minecraft/world/level/Level.isClientSide()Z
+        skip:
+
         invokestatic net/minecraft/world/InteractionResult.sidedSuccess(Z)net/minecraft/world/InteractionResult
+
         areturn
     }
 }

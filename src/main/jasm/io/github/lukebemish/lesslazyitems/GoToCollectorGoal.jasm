@@ -1,14 +1,11 @@
-public class io/github/lukebemish/walkingitems/GoToCollectorGoal extends net/minecraft/world/entity/ai/goal/MoveToBlockGoal {
-    public <init>(io/github/lukebemish/walkingitems/WalkingItemEntity,double)V {
+public class io/github/lukebemish/lesslazyitems/GoToCollectorGoal extends net/minecraft/world/entity/ai/goal/MoveToBlockGoal {
+    public <init>(io/github/lukebemish/lesslazyitems/WalkingItemEntity,double)V {
         aload 0
         aload 1
         dload 2
-        bipush 8
-        invokespecial net/minecraft/world/entity/ai/goal/MoveToBlockGoal.<init>(net/minecraft/world/entity/PathfinderMob,double,int)V
-
-        aload 0
-        bipush -2
-        putfield io/github/lukebemish/walkingitems/GoToCollectorGoal.verticalSearchStart int
+        bipush 16
+        bipush 5
+        invokespecial net/minecraft/world/entity/ai/goal/MoveToBlockGoal.<init>(net/minecraft/world/entity/PathfinderMob,double,int,I)V
 
         return
     }
@@ -22,7 +19,7 @@ public class io/github/lukebemish/walkingitems/GoToCollectorGoal extends net/min
         aload 1
         aload 2
         invokeinterface net/minecraft/world/level/LevelReader.getBlockState(net/minecraft/core/BlockPos)net/minecraft/world/level/block/state/BlockState
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.COLLECTORS net/minecraft/tags/TagKey
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
         invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
         goto out
 
@@ -32,4 +29,16 @@ public class io/github/lukebemish/walkingitems/GoToCollectorGoal extends net/min
         out:
         ireturn
     }
+
+    protected nextStartTick(net/minecraft/world/entity/PathfinderMob)I {
+        bipush 20
+        ireturn
+    }
+
+    public acceptedDistance()D {
+        ldc 0.1
+        f2d
+        dreturn
+    }
+
 }

@@ -1,4 +1,4 @@
-public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends net/minecraft/client/renderer/entity/EntityRenderer {
+public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extends net/minecraft/client/renderer/entity/EntityRenderer {
 
     private final itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
     private final random net/minecraft/util/RandomSource
@@ -14,13 +14,13 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         dup
         aload 1
         invokevirtual net/minecraft/client/renderer/entity/EntityRendererProvider$Context.getItemRenderer()net/minecraft/client/renderer/entity/ItemRenderer
-        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
         ldc 0.15
-        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowRadius F
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.shadowRadius F
         ldc 0.75
-        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowStrength F
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.shadowStrength F
         invokestatic* net/minecraft/util/RandomSource.create()net/minecraft/util/RandomSource
-        putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
 
         return
     }
@@ -56,13 +56,17 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         ireturn
     }
 
-    public render(io/github/lukebemish/walkingitems/WalkingItemEntity,F,F,com/mojang/blaze3d/vertex/PoseStack,net/minecraft/client/renderer/MultiBufferSource,I)V {
+    public render(net/minecraft/world/entity/Entity,F,F,com/mojang/blaze3d/vertex/PoseStack,net/minecraft/client/renderer/MultiBufferSource,I)V {
+        aload 1
+        checkcast io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        astore 1
+
         aload 4
         invokevirtual com/mojang/blaze3d/vertex/PoseStack.pushPose()V
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         aload 1
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
         dup
         astore 7
         // a7 - itemStack
@@ -73,6 +77,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         skip1:
         aload 7
         invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+
         invokestatic net/minecraft/world/item/Item.getId(net/minecraft/world/item/Item)I
         aload 7
         invokevirtual net/minecraft/world/item/ItemStack.getDamageValue()I
@@ -82,13 +87,13 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         invokeinterface net/minecraft/util/RandomSource.setSeed(J)V
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
         aload 7
         aload 1
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
         aconst_null
         aload 1
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getId()I
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getId()I
         invokevirtual net/minecraft/client/renderer/entity/ItemRenderer.getModel(net/minecraft/world/item/ItemStack,net/minecraft/world/level/Level,net/minecraft/world/entity/LivingEntity,I)net/minecraft/client/resources/model/BakedModel
         dup
         astore 8
@@ -100,19 +105,19 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
 
         aload 0
         aload 7
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.getRenderAmount(net/minecraft/world/item/ItemStack)I
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.getRenderAmount(net/minecraft/world/item/ItemStack)I
         istore 10
         // i10 num to render
 
         aload 1
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getAge()I
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getAge()I
         i2f
         fload 3
         fadd
         ldc 10.0
         fdiv
         aload 1
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.bobOffs F
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.bobOffs F
         fadd
         invokestatic net/minecraft/util/Mth.sin(F)F
         ldc 0.1
@@ -124,9 +129,16 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
 
         aload 4
         dconst 0
-        ldc 0.25
         fload 11
+        ldc 0.25
+        aload 8
+        invokeinterface net/minecraft/client/resources/model/BakedModel.getTransforms()net/minecraft/client/renderer/block/model/ItemTransforms
+        getstatic net/minecraft/client/renderer/block/model/ItemTransforms$TransformType.GROUND net/minecraft/client/renderer/block/model/ItemTransforms$TransformType
+        invokevirtual net/minecraft/client/renderer/block/model/ItemTransforms.getTransform(net/minecraft/client/renderer/block/model/ItemTransforms$TransformType)net/minecraft/client/renderer/block/model/ItemTransform
+        getfield net/minecraft/client/renderer/block/model/ItemTransform.scale com/mojang/math/Vector3f
+        invokevirtual com/mojang/math/Vector3f.y()F
         fmul
+        fadd
         f2d
         dconst 0
         invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
@@ -134,7 +146,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         aload 4
         aload 1
         fload 3
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getSpin(F)F
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getSpin(F)F
         getstatic com/mojang/math/Vector3f.YP com/mojang/math/Vector3f
         swap
         invokevirtual com/mojang/math/Vector3f.rotation(F)com/mojang/math/Quaternion
@@ -164,8 +176,12 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         iload 12 // iter
         iload 10 // amount
         if_icmpge break1
+
         aload 4
         invokevirtual com/mojang/blaze3d/vertex/PoseStack.pushPose()V
+
+        iload 12
+        ifeq skip6
 
         aload 4
 
@@ -173,7 +189,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         ifne skip4
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         invokeinterface net/minecraft/util/RandomSource.nextFloat()F
         ldc 2.0
         fmul
@@ -186,7 +202,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         f2d
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         invokeinterface net/minecraft/util/RandomSource.nextFloat()F
         ldc 2.0
         fmul
@@ -205,7 +221,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         skip4:
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         invokeinterface net/minecraft/util/RandomSource.nextFloat()F
         ldc 2.0
         fmul
@@ -216,7 +232,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         f2d
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         invokeinterface net/minecraft/util/RandomSource.nextFloat()F
         ldc 2.0
         fmul
@@ -227,7 +243,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         f2d
 
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
         invokeinterface net/minecraft/util/RandomSource.nextFloat()F
         ldc 2.0
         fmul
@@ -241,13 +257,15 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
 
         invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
 
+        skip6:
+
         aload 0
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
         aload 7
         getstatic net/minecraft/client/renderer/block/model/ItemTransforms$TransformType.GROUND net/minecraft/client/renderer/block/model/ItemTransforms$TransformType
         iconst 0
         aload 4
-        aload 4
+        aload 5
         iload 6
         getstatic net/minecraft/client/renderer/texture/OverlayTexture.NO_OVERLAY I
         aload 8
@@ -302,7 +320,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         return
     }
 
-    public getTextureLocation(io/github/lukebemish/walkingitems/WalkingItemEntity)net/minecraft/resources/ResourceLocation {
+    public getTextureLocation(io/github/lukebemish/lesslazyitems/WalkingItemEntity)net/minecraft/resources/ResourceLocation {
         getstatic net/minecraft/client/renderer/texture/TextureAtlas.LOCATION_BLOCKS net/minecraft/resources/ResourceLocation
         areturn
     }

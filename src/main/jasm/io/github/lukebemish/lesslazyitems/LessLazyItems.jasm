@@ -1,6 +1,6 @@
-public class io/github/lukebemish/walkingitems/WalkingItems {
+public class io/github/lukebemish/lesslazyitems/LessLazyItems {
 
-    public final static MODID java/lang/String = "walkingitems"
+    public final static MODID java/lang/String = "lesslazyitems"
 
     public final static LOGGER org/slf4j/Logger
 
@@ -20,11 +20,11 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
         invokevirtual net/minecraftforge/fml/javafmlmod/FMLJavaModLoadingContext.getModEventBus()net/minecraftforge/eventbus/api/IEventBus
         astore 1
 
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.ITEMS net/minecraftforge/registries/DeferredRegister
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEMS net/minecraftforge/registries/DeferredRegister
         aload 1
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(net/minecraftforge/eventbus/api/IEventBus)V
 
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.ENTITIES net/minecraftforge/registries/DeferredRegister
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ENTITIES net/minecraftforge/registries/DeferredRegister
         aload 1
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(net/minecraftforge/eventbus/api/IEventBus)V
 
@@ -44,7 +44,7 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
             )java/lang/invoke/CallSite
             [
                 (java/lang/Object)V,
-                invokestatic io/github/lukebemish/walkingitems/WalkingItemsClient.registerRenderers(net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItemsClient.registerRenderers(net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V,
                 (net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V
             ]
         }
@@ -64,7 +64,7 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
             )java/lang/invoke/CallSite
             [
                 (java/lang/Object)V,
-                invokestatic io/github/lukebemish/walkingitems/WalkingItems.lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V,
                 (net/minecraftforge/event/entity/EntityAttributeCreationEvent)V
             ]
         }
@@ -75,20 +75,20 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
 
     static <clinit>()V {
         invokestatic com/mojang/logging/LogUtils.getLogger()org/slf4j/Logger
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.LOGGER org/slf4j/Logger
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.LOGGER org/slf4j/Logger
 
         getstatic net/minecraftforge/registries/ForgeRegistries.ENTITIES net/minecraftforge/registries/IForgeRegistry
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.MODID java/lang/String
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.MODID java/lang/String
         invokestatic net/minecraftforge/registries/DeferredRegister.create(net/minecraftforge/registries/IForgeRegistry,java/lang/String)net/minecraftforge/registries/DeferredRegister
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.ENTITIES net/minecraftforge/registries/DeferredRegister
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ENTITIES net/minecraftforge/registries/DeferredRegister
 
         getstatic net/minecraftforge/registries/ForgeRegistries.ITEMS net/minecraftforge/registries/IForgeRegistry
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.MODID java/lang/String
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.MODID java/lang/String
         invokestatic net/minecraftforge/registries/DeferredRegister.create(net/minecraftforge/registries/IForgeRegistry,java/lang/String)net/minecraftforge/registries/DeferredRegister
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.ITEMS net/minecraftforge/registries/DeferredRegister
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEMS net/minecraftforge/registries/DeferredRegister
 
 
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.ITEMS net/minecraftforge/registries/DeferredRegister
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEMS net/minecraftforge/registries/DeferredRegister
         ldc "item_wand"
         invokedynamic get()java/util/function/Supplier {
             invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
@@ -101,14 +101,14 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
             )java/lang/invoke/CallSite
             [
                 ()java/lang/Object,
-                invokestatic io/github/lukebemish/walkingitems/WalkingItems.lambda0()net/minecraft/world/item/Item,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda0()net/minecraft/world/item/Item,
                 ()net/minecraft/world/item/Item
             ]
         }
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(java/lang/String,java/util/function/Supplier)net/minecraftforge/registries/RegistryObject
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.ITEM_WAND net/minecraftforge/registries/RegistryObject
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEM_WAND net/minecraftforge/registries/RegistryObject
 
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.ENTITIES net/minecraftforge/registries/DeferredRegister
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ENTITIES net/minecraftforge/registries/DeferredRegister
         ldc "walking_item"
         invokedynamic get()java/util/function/Supplier {
             invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
@@ -121,27 +121,27 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
             )java/lang/invoke/CallSite
             [
                 ()java/lang/Object,
-                invokestatic io/github/lukebemish/walkingitems/WalkingItems.lambda1()net/minecraft/world/entity/EntityType,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda1()net/minecraft/world/entity/EntityType,
                 ()net/minecraft/world/entity/EntityType
             ]
         }
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(java/lang/String,java/util/function/Supplier)net/minecraftforge/registries/RegistryObject
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
 
 
         new net/minecraft/resources/ResourceLocation
         dup
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.MODID java/lang/String
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.MODID java/lang/String
         ldc "collectors"
         invokespecial net/minecraft/resources/ResourceLocation.<init>(java/lang/String, java/lang/String)V
         invokestatic net/minecraft/tags/BlockTags.create(net/minecraft/resources/ResourceLocation)net/minecraft/tags/TagKey
-        putstatic io/github/lukebemish/walkingitems/WalkingItems.COLLECTORS net/minecraft/tags/TagKey
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
 
         return
     }
 
     public static lambda0()net/minecraft/world/item/Item {
-        new io/github/lukebemish/walkingitems/ItemWandItem
+        new io/github/lukebemish/lesslazyitems/ItemWandItem
         dup
         new net/minecraft/world/item/Item$Properties
         dup
@@ -150,7 +150,7 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
         invokevirtual net/minecraft/world/item/Item$Properties.tab(net/minecraft/world/item/CreativeModeTab)net/minecraft/world/item/Item$Properties
         //sipush 256
         //invokevirtual net/minecraft/world/item/Item$Properties.durability(int)net/minecraft/world/item/Item$Properties
-        invokespecial io/github/lukebemish/walkingitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties)V
+        invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties)V
         areturn
     }
 
@@ -166,8 +166,8 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
             )java/lang/invoke/CallSite
             [
                 (net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)net/minecraft/world/entity/Entity,
-                newinvokespecial io/github/lukebemish/walkingitems/WalkingItemEntity.<init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V,
-                (net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)io/github/lukebemish/walkingitems/WalkingItemEntity
+                newinvokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntity.<init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V,
+                (net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)io/github/lukebemish/lesslazyitems/WalkingItemEntity
             ]
         }
         getstatic net/minecraft/world/entity/MobCategory.MISC net/minecraft/world/entity/MobCategory
@@ -177,17 +177,17 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
         invokevirtual net/minecraft/world/entity/EntityType$Builder.sized(F,F)net/minecraft/world/entity/EntityType$Builder
         bipush 8
         invokevirtual net/minecraft/world/entity/EntityType$Builder.clientTrackingRange(I)net/minecraft/world/entity/EntityType$Builder
-        ldc "walkingitems:walking_item"
+        ldc "lesslazyitems:walking_item"
         invokevirtual net/minecraft/world/entity/EntityType$Builder.build(java/lang/String)net/minecraft/world/entity/EntityType
         areturn
     }
 
     public static lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V {
         aload 0
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
         invokeinterface java/util/function/Supplier.get()java/lang/Object
         checkcast net/minecraft/world/entity/EntityType
-        invokestatic io/github/lukebemish/walkingitems/WalkingItemEntity.createAttributes()net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
+        invokestatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.createAttributes()net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
         invokevirtual net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder.build()net/minecraft/world/entity/ai/attributes/AttributeSupplier
         invokevirtual net/minecraftforge/event/entity/EntityAttributeCreationEvent.put(net/minecraft/world/entity/EntityType, net/minecraft/world/entity/ai/attributes/AttributeSupplier)V
 

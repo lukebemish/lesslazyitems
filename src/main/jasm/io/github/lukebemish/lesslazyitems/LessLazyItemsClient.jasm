@@ -1,4 +1,4 @@
-public class io/github/lukebemish/walkingitems/WalkingItemsClient {
+public class io/github/lukebemish/lesslazyitems/LessLazyItemsClient {
     private <init>()V {
         aload 0
         invokespecial java/lang/Object.<init>()V
@@ -7,7 +7,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemsClient {
 
     public static registerRenderers(net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V {
         aload 0
-        getstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
         invokeinterface java/util/function/Supplier.get()java/lang/Object
         checkcast net/minecraft/world/entity/EntityType
         invokedynamic create()net/minecraft/client/renderer/entity/EntityRendererProvider {
@@ -21,8 +21,8 @@ public class io/github/lukebemish/walkingitems/WalkingItemsClient {
             )java/lang/invoke/CallSite
             [
                 (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)net/minecraft/client/renderer/entity/EntityRenderer,
-                newinvokespecial io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V,
-                (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)io/github/lukebemish/walkingitems/WalkingItemEntityRenderer
+                newinvokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V,
+                (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer
             ]
         }
         invokevirtual net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers.registerEntityRenderer(net/minecraft/world/entity/EntityType,net/minecraft/client/renderer/entity/EntityRendererProvider)V

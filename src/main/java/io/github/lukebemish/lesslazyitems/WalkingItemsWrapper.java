@@ -1,5 +1,6 @@
-package io.github.lukebemish.walkingitems;
+package io.github.lukebemish.lesslazyitems;
 
+import io.github.lukebemish.lesslazyitems.WalkingItems;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(WalkingItems.MODID)
