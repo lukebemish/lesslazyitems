@@ -11,6 +11,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         aload 0
         dup
         dup
+        dup
         aload 1
         invokevirtual net/minecraft/client/renderer/entity/EntityRendererProvider$Context.getItemRenderer()net/minecraft/client/renderer/entity/ItemRenderer
         putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
@@ -18,10 +19,10 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowRadius F
         ldc 0.75
         putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.shadowStrength F
-
-        aload 0
-        invokestatic net/minecraft/util/RandomSource.create()net/minecraft/util/RandomSource
+        invokestatic* net/minecraft/util/RandomSource.create()net/minecraft/util/RandomSource
         putfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.random net/minecraft/util/RandomSource
+
+        return
     }
 
     protected getRenderAmount(net/minecraft/world/item/ItemStack)I {
@@ -104,14 +105,14 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         // i10 num to render
 
         aload 1
-        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.getAge()I
+        invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getAge()I
         i2f
         fload 3
         fadd
         ldc 10.0
         fdiv
         aload 1
-        getfield io/github/lukebemish/walkingitems/WalkingItemEntityRenderer.bobOffs F
+        getfield io/github/lukebemish/walkingitems/WalkingItemEntity.bobOffs F
         fadd
         invokestatic net/minecraft/util/Mth.sin(F)F
         ldc 0.1
@@ -134,10 +135,10 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         aload 1
         fload 3
         invokevirtual io/github/lukebemish/walkingitems/WalkingItemEntity.getSpin(F)F
-        getstatic com/mojang/math/Vector3f.YP com/mojand/math/Vector3f
+        getstatic com/mojang/math/Vector3f.YP com/mojang/math/Vector3f
         swap
         invokevirtual com/mojang/math/Vector3f.rotation(F)com/mojang/math/Quaternion
-        invokevirtual com/mojang/blaze3d/PoseStack.mulPose(com/mojang/math/Quaternion)V
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.mulPose(com/mojang/math/Quaternion)V
 
         iload 9
         ifne skip2
@@ -153,7 +154,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         ldc 0.5
         fmul
         f2d
-        invokevirtual com/mojang/blaze3d/PoseStack.translate(D,D,D)V
+        invokevirtual com/mojang/blaze3d/vertex/PoseStack.translate(D,D,D)V
         skip2:
 
         iconst 0
@@ -248,7 +249,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemEntityRenderer extends
         aload 4
         aload 4
         iload 6
-        getstatic net/minecraft/client/renderer/texture/OverlayTexture.NO_OVERLAY net/minecraft/client/renderer/texture/OverlayTexture
+        getstatic net/minecraft/client/renderer/texture/OverlayTexture.NO_OVERLAY I
         aload 8
         invokevirtual net/minecraft/client/renderer/entity/ItemRenderer.render(
             net/minecraft/world/item/ItemStack,

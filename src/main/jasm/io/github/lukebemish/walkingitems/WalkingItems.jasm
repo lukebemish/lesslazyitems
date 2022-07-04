@@ -28,6 +28,48 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
         aload 1
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(net/minecraftforge/eventbus/api/IEventBus)V
 
+        invokestatic net/minecraftforge/fml/loading/FMLLoader.getDist()net/minecraftforge/api/distmarker/Dist
+        getstatic net/minecraftforge/api/distmarker/Dist.CLIENT net/minecraftforge/api/distmarker/Dist
+
+        if_acmpne skip1
+        aload 1
+        invokedynamic accept()java/util/function/Consumer {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (java/lang/Object)V,
+                invokestatic io/github/lukebemish/walkingitems/WalkingItemsClient.registerRenderers(net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V,
+                (net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers)V
+            ]
+        }
+        invokeinterface net/minecraftforge/eventbus/api/IEventBus.addListener(java/util/function/Consumer)V
+
+        skip1:
+
+        getstatic net/minecraftforge/common/MinecraftForge.EVENT_BUS net/minecraftforge/eventbus/api/IEventBus
+        invokedynamic accept()java/util/function/Consumer {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (java/lang/Object)V,
+                invokestatic io/github/lukebemish/walkingitems/WalkingItems.lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V,
+                (net/minecraftforge/event/entity/EntityAttributeCreationEvent)V
+            ]
+        }
+        invokeinterface net/minecraftforge/eventbus/api/IEventBus.addListener(java/util/function/Consumer)V
+
         return
     }
 
@@ -138,5 +180,17 @@ public class io/github/lukebemish/walkingitems/WalkingItems {
         ldc "walkingitems:walking_item"
         invokevirtual net/minecraft/world/entity/EntityType$Builder.build(java/lang/String)net/minecraft/world/entity/EntityType
         areturn
+    }
+
+    public static lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V {
+        aload 0
+        getstatic io/github/lukebemish/walkingitems/WalkingItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
+        invokeinterface java/util/function/Supplier.get()java/lang/Object
+        checkcast net/minecraft/world/entity/EntityType
+        invokestatic io/github/lukebemish/walkingitems/WalkingItemEntity.createAttributes()net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
+        invokevirtual net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder.build()net/minecraft/world/entity/ai/attributes/AttributeSupplier
+        invokevirtual net/minecraftforge/event/entity/EntityAttributeCreationEvent.put(net/minecraft/world/entity/EntityType, net/minecraft/world/entity/ai/attributes/AttributeSupplier)V
+
+        return
     }
 }

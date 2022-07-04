@@ -25,7 +25,7 @@ public class io/github/lukebemish/walkingitems/WalkingItemsClient {
                 (net/minecraft/client/renderer/entity/EntityRendererProvider$Context)io/github/lukebemish/walkingitems/WalkingItemEntityRenderer
             ]
         }
-        invokevirtual net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers.registryEntityRenderer(net/minecraft/world/entity/EntityType,net/minecraft/client/renderer/entity/EntityRendererProvider)V
+        invokevirtual net/minecraftforge/client/event/EntityRenderersEvent$RegisterRenderers.registerEntityRenderer(net/minecraft/world/entity/EntityType,net/minecraft/client/renderer/entity/EntityRendererProvider)V
         return
     }
 }
