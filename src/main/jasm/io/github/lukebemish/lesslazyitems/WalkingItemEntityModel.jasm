@@ -1,3 +1,72 @@
-public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel {
-    
+public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends net/minecraft/client/model/entity/EntityModel {
+    private final rightLeg net/minecraft/client/model/geom/ModelPart
+    private final leftLeg net/minecraft/client/model/geom/ModelPart
+
+    public <init>(net/minecraft/client/model/geom/ModelPart)V {
+        aload 0
+        invokespecial net/minecraft/client/model/entity/EntityModel.<init>()V
+
+        aload 0
+        aload 1
+        ldc "right_leg"
+        invokevirtual net/minecraft/client/model/geom/ModelPart.getChild(java/lang/String)net/minecraft/client/model/geom/ModelPart
+        putfield net/minecraft/client/model/ChickenModel.rightLeg net/minecraft/client/model/geom/ModelPart
+
+        aload 0
+        aload 1
+        ldc "left_leg"
+        invokevirtual net/minecraft/client/model/geom/ModelPart.getChild(java/lang/String)net/minecraft/client/model/geom/ModelPart
+        putfield net/minecraft/client/model/ChickenModel.leftLeg net/minecraft/client/model/geom/ModelPart
+
+        return
+    }
+
+    public static createBodyLayer()net/minecraft/model/geom/builders/LayerDefinition {
+        new net/minecraft/client/model/geom/builders/MeshDefinition
+        dup
+        invokespecial net/minecraft/client/model/geom/builders/MeshDefinition.<init>()V
+        dup
+        astore 0
+        invokevirtual net/minecraft/client/model/geom/builders/MeshDefinition.getRoot()net/minecraft/client/model/geom/builders/PartDefinition
+        astore 1
+        invokestatic net/minecraft/client/model/geom/builders/CubeListBuilder.create()net/minecraft/client/model/geom/builders/CubeListBuilder
+        bipush 26
+        iconst 0
+        invokevirtual net/minecraft/client/model/geom/builders/CubeListBuilder.texOffs(I,I)net/minecraft/client/model/geom/builders/CubeListBuilder
+        ldc -1.0
+        fconst 0
+        ldc -3.0
+        ldc 3.0
+        ldc 5.0
+        ldc 3.0
+        invokevirtual net/minecraft/client/model/geom/builders/CubeListBuilder.addBox(F,F,F,F,F,F)net/minecraft/client/model/geom/builders/CubeListBuilder
+        astore 2
+
+        // right
+        aload 1
+        ldc "right_leg"
+        aload 2
+        ldc -2.0
+        ldc 19.0
+        fconst 1
+        invokestatic net/minecraft/client/model/geom/PartPose.offset(F,F,F,)net/minecraft/client/model/geom/PartPose
+        invokevirtual net/minecraft/client/model/geom/builders/PartDefinition.addOrReplaceChild(java/lang/String,net/minecraft/client/model/geom/builders/CubeListBuilder,net/minecraft/client/model/geom/PartPose)net/minecraft/client/model/geom/builders/PartDefinition
+        pop
+
+        aload 1
+        ldc "left_leg"
+        aload 3
+        fconst 1
+        ldc 19.0
+        fconst 1
+        invokestatic net/minecraft/client/model/geom/PartPose.offset(F,F,F,)net/minecraft/client/model/geom/PartPose
+        invokevirtual net/minecraft/client/model/geom/builders/PartDefinition.addOrReplaceChild(java/lang/String,net/minecraft/client/model/geom/builders/CubeListBuilder,net/minecraft/client/model/geom/PartPose)net/minecraft/client/model/geom/builders/PartDefinition
+        pop
+
+        aload 0
+        bipush 64
+        bipush 32
+        invokestatic net/minecraft/client/model/geom/builders/LayerDefinition.create(net/minecraft/client/model/geom/builders/MeshDefinition,I,I)net/minecraft/client/model/geom/builders/LayerDefinition
+        areturn
+    }
 }
