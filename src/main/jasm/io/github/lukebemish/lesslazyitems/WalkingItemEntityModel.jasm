@@ -21,7 +21,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends n
         return
     }
 
-    public static createBodyLayer()net/minecraft/model/geom/builders/LayerDefinition {
+    public static createBodyLayer()net/minecraft/client/model/geom/builders/LayerDefinition {
         new net/minecraft/client/model/geom/builders/MeshDefinition
         dup
         invokespecial net/minecraft/client/model/geom/builders/MeshDefinition.<init>()V
@@ -53,9 +53,10 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends n
         invokevirtual net/minecraft/client/model/geom/builders/PartDefinition.addOrReplaceChild(java/lang/String,net/minecraft/client/model/geom/builders/CubeListBuilder,net/minecraft/client/model/geom/PartPose)net/minecraft/client/model/geom/builders/PartDefinition
         pop
 
+        // left
         aload 1
         ldc "left_leg"
-        aload 3
+        aload 2
         fconst 1
         ldc 19.0
         fconst 1
@@ -68,5 +69,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends n
         bipush 32
         invokestatic net/minecraft/client/model/geom/builders/LayerDefinition.create(net/minecraft/client/model/geom/builders/MeshDefinition,I,I)net/minecraft/client/model/geom/builders/LayerDefinition
         areturn
+        // Basically copied stuff from the chicken here, since I'm literally using the same leg setup.
     }
 }
