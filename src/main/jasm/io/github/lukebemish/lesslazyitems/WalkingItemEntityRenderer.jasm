@@ -1,4 +1,6 @@
-public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extends net/minecraft/client/renderer/entity/EntityRenderer {
+public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extends net/minecraft/client/renderer/entity/MobRenderer {
+
+    private final static CHICKEN_LOCATION net/minecraft/resources/ResourceLocation
 
     private final itemRenderer net/minecraft/client/renderer/entity/ItemRenderer
     private final random net/minecraft/util/RandomSource
@@ -6,7 +8,14 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extend
     public <init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V {
         aload 0
         aload 1
-        invokespecial net/minecraft/client/renderer/entity/EntityRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context)V
+        new io/github/lukebemish/lesslazyitems/WalkingItemEntityModel
+        dup
+        aload 1
+        getstatic net/minecraft/client/model/geom/ModelLayers.CHICKEN net/minecraft/client/model/geom/ModelLayerLocation
+        invokevirtual net/minecraft/client/renderer/entity/EntityRendererProvider$Context.bakeLayer(net/minecraft/client/model/geom/ModelLayerLocation)net/minecraft/client/model/geom/ModelPart
+        invokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.<init>(net/minecraft/client/model/geom/ModelPart)V
+        ldc 0.3
+        invokespecial net/minecraft/client/renderer/entity/MobRenderer.<init>(net/minecraft/client/renderer/entity/EntityRendererProvider$Context,net/minecraft/client/model/EntityModel,F)V
 
         aload 0
         dup
@@ -309,7 +318,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extend
         aload 5
         iload 6
 
-        invokespecial net/minecraft/client/renderer/entity/EntityRenderer.render(
+        invokespecial net/minecraft/client/renderer/entity/MobRenderer.render(
             net/minecraft/world/entity/Entity,
             F,
             F,
@@ -320,8 +329,17 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extend
         return
     }
 
-    public getTextureLocation(io/github/lukebemish/lesslazyitems/WalkingItemEntity)net/minecraft/resources/ResourceLocation {
-        getstatic net/minecraft/client/renderer/texture/TextureAtlas.LOCATION_BLOCKS net/minecraft/resources/ResourceLocation
+    public getTextureLocation(net/minecraft/world/entity/Entity)net/minecraft/resources/ResourceLocation {
+        getstatic io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.CHICKEN_LOCATION net/minecraft/resources/ResourceLocation
         areturn
+    }
+
+    static <clinit>()V {
+        new net/minecraft/resources/ResourceLocation
+        dup
+        ldc "textures/entity/chicken.png"
+        invokespecial net/minecraft/resources/ResourceLocation.<init>(java/lang/String)V
+        putstatic io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.CHICKEN_LOCATION net/minecraft/resources/ResourceLocation
+        return
     }
 }

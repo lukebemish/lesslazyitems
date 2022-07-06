@@ -1,0 +1,262 @@
+public class io/github/lukebemish/lesslazyitems/CollectItemsGoal extends net/minecraft/world/entity/ai/goal/Goal {
+    protected final walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+
+    public <init>(io/github/lukebemish/lesslazyitems/WalkingItemEntity)V {
+        aload 0
+        dup
+        invokespecial net/minecraft/world/entity/ai/goal/Goal.<init>()V
+        aload 1
+        putfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        return
+    }
+
+    public canUse()Z {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        dup
+        astore 1
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        aconst_null
+        invokevirtual net/minecraftforge/common/capabilities/CapabilityProvider.getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional
+        aconst_null
+        invokevirtual net/minecraftforge/common/util/LazyOptional.orElse(java/lang/Object)java/lang/Object
+        dup
+        astore 2
+        ifnull out
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.nearbyItems()java/util/List
+
+        invokeinterface java/lang/Iterable.iterator()java/util/Iterator
+        astore 3
+        loop:
+        aload 3
+        invokeinterface java/util/Iterator.hasNext()Z
+        ifeq out
+        aload 0
+        aload 3
+        invokeinterface java/util/Iterator.next()java/lang/Object
+        checkcast net/minecraft/world/entity/Entity
+        aload 2
+        checkcast net/minecraftforge/items/IItemHandler
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.checkForInsertion(net/minecraft/world/entity/Entity,net/minecraftforge/items/IItemHandler)Z
+        ifeq skip1
+        iconst 1
+        ireturn
+
+        skip1:
+        goto loop
+
+        out:
+        iconst 0
+        ireturn
+    }
+
+    public tick()V {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        dup
+        astore 1
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        aconst_null
+        invokevirtual net/minecraftforge/common/capabilities/CapabilityProvider.getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional
+        aconst_null
+        invokevirtual net/minecraftforge/common/util/LazyOptional.orElse(java/lang/Object)java/lang/Object
+        dup
+        astore 2
+        ifnull out
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.nearbyItems()java/util/List
+
+        invokeinterface java/lang/Iterable.iterator()java/util/Iterator
+        astore 3
+        loop:
+        aload 3
+        invokeinterface java/util/Iterator.hasNext()Z
+        ifeq out
+        aload 0
+        aload 3
+        invokeinterface java/util/Iterator.next()java/lang/Object
+        checkcast net/minecraft/world/entity/Entity
+        dup
+        astore 4
+        aload 2
+        checkcast net/minecraftforge/items/IItemHandler
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.checkForInsertion(net/minecraft/world/entity/Entity,net/minecraftforge/items/IItemHandler)Z
+        ifeq skip1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getNavigation()net/minecraft/world/entity/ai/navigation/PathNavigation
+        aload 4
+        dconst 1
+        invokevirtual net/minecraft/world/entity/ai/navigation/PathNavigation.moveTo(net/minecraft/world/entity/Entity,D)Z
+        pop
+        return
+
+        skip1:
+        goto loop
+
+        out:
+        return
+    }
+
+    public start()V {
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.tick()V
+        return
+    }
+
+    private checkForInsertion(net/minecraft/world/entity/Entity,net/minecraftforge/items/IItemHandler)Z {
+        aload 1
+        instanceof net/minecraft/world/entity/item/ItemEntity
+        ifne itemEntity
+
+        aload 1
+        instanceof io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        ifne walkingItemEntity
+        iconst 0
+        goto out
+
+        itemEntity:
+        aload 0
+        aload 1
+        checkcast net/minecraft/world/entity/item/ItemEntity
+        aload 2
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.checkForInsertion(net/minecraft/world/entity/item/ItemEntity,net/minecraftforge/items/IItemHandler)Z
+        goto out
+
+        walkingItemEntity:
+        aload 0
+        aload 1
+        checkcast io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        aload 2
+        invokevirtual io/github/lukebemish/lesslazyitems/CollectItemsGoal.checkForInsertion(io/github/lukebemish/lesslazyitems/WalkingItemEntity,net/minecraftforge/items/IItemHandler)Z
+
+        out:
+        ireturn
+    }
+
+    private checkForInsertion(net/minecraft/world/entity/item/ItemEntity,net/minecraftforge/items/IItemHandler)Z {
+        aload 1
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.getItem()net/minecraft/world/item/ItemStack
+        astore 5
+        aload 2
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
+        istore 3
+        iconst 0
+        istore 4
+
+        loop1:
+        iload 4
+        iload 3
+        if_icmpge break1
+        aload 2
+        iload 4
+        aload 5
+        iconst 1
+        invokeinterface net/minecraftforge/items/IItemHandler.insertItem(I,net/minecraft/world/item/ItemStack,Z)net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        if_icmpeq skip1
+        iconst 1
+        ireturn
+
+        skip1:
+        iinc 4[1]
+        goto loop1
+        break1:
+        iconst 0
+        ireturn
+    }
+
+    private checkForInsertion(io/github/lukebemish/lesslazyitems/WalkingItemEntity,net/minecraftforge/items/IItemHandler)Z {
+        aload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        astore 5
+        aload 2
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
+        istore 3
+        iconst 0
+        istore 4
+
+        loop1:
+        iload 4
+        iload 3
+        if_icmpge break1
+        aload 2
+        iload 4
+        aload 5
+        iconst 1
+        invokeinterface net/minecraftforge/items/IItemHandler.insertItem(I,net/minecraft/world/item/ItemStack,Z)net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        if_icmpeq skip1
+        iconst 1
+        ireturn
+
+        skip1:
+        iinc 4[1]
+        goto loop1
+        break1:
+        iconst 0
+        ireturn
+    }
+
+    private nearbyItems()java/util/List {
+        new java/util/ArrayList
+        dup
+        invokespecial java/util/ArrayList.<init>()V
+        astore 1
+
+        aload 1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        ldc net/minecraft/world/entity/item/ItemEntity
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getBoundingBox()net/minecraft/world/phys/AABB
+        ldc 8
+        i2d
+        ldc 8
+        i2d
+        ldc 8
+        i2d
+        invokevirtual net/minecraft/world/phys/AABB.inflate(D,D,D)net/minecraft/world/phys/AABB
+        invokeinterface net/minecraft/world/level/EntityGetter.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB)java/util/List
+        invokevirtual java/util/ArrayList.addAll(java/util/Collection)Z
+        pop
+
+        aload 1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        ldc io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getBoundingBox()net/minecraft/world/phys/AABB
+        ldc 8
+        i2d
+        ldc 8
+        i2d
+        ldc 8
+        i2d
+        invokevirtual net/minecraft/world/phys/AABB.inflate(D,D,D)net/minecraft/world/phys/AABB
+        invokeinterface net/minecraft/world/level/EntityGetter.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB)java/util/List
+        invokevirtual java/util/ArrayList.addAll(java/util/Collection)Z
+        pop
+
+        aload 1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/CollectItemsGoal.walkingItemEntity io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        invokevirtual java/util/ArrayList.remove(java/lang/Object)Z
+        pop
+
+        aload 1
+
+        areturn
+    }
+}

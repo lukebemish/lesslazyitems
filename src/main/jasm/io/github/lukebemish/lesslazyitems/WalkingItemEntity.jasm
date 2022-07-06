@@ -2,7 +2,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
     private static final DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
 
     private age int
-    private itemAge int
     public final bobOffs float
 
     public <init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V {
@@ -45,11 +44,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/world/entity/item/ItemEntity.getItem()net/minecraft/world/item/ItemStack
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.setItem(net/minecraft/world/item/ItemStack)V
 
-        aload 0
-        aload 2
-        invokevirtual net/minecraft/world/entity/item/ItemEntity.getAge()I
-        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.itemAge I
-
         aload 2
         invokevirtual net/minecraft/world/entity/item/ItemEntity.discard()V
 
@@ -79,29 +73,35 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/world/level/Level.isClientSide()Z
         ifne skip1
 
+
         new net/minecraft/core/BlockPos
         dup
         aload 0
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.position()net/minecraft/world/phys/Vec3
+        dconst 0
+        ldc 0.5
+        f2d
+        dconst 0
+        invokevirtual net/minecraft/world/phys/Vec3.add(D,D,D)net/minecraft/world/phys/Vec3
         invokespecial net/minecraft/core/BlockPos.<init>(net/minecraft/world/phys/Vec3)V
         astore 1
 
         aload 0
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
         aload 1
-        invokevirtual net/minecraft/core/BlockPos.above()net/minecraft/core/BlockPos
+        invokevirtual net/minecraft/core/BlockPos.below()net/minecraft/core/BlockPos
         invokeinterface net/minecraft/world/level/LevelReader.getBlockState(net/minecraft/core/BlockPos)net/minecraft/world/level/block/state/BlockState
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
         invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
         ifne run1
 
-        aload 0
+        /*aload 0
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
         aload 1
         invokeinterface net/minecraft/world/level/LevelReader.getBlockState(net/minecraft/core/BlockPos)net/minecraft/world/level/block/state/BlockState
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
         invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
-        ifne run1
+        ifne run1*/
 
         aload 0
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.age I
@@ -143,6 +143,15 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         aload 0
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.goalSelector net/minecraft/world/entity/ai/goal/GoalSelector
         iconst 2
+        new io/github/lukebemish/lesslazyitems/CollectItemsGoal
+        dup
+        aload 0
+        invokespecial io/github/lukebemish/lesslazyitems/CollectItemsGoal.<init>(io/github/lukebemish/lesslazyitems/WalkingItemEntity)V
+        invokevirtual net/minecraft/world/entity/ai/goal/GoalSelector.addGoal(int,net/minecraft/world/entity/ai/goal/Goal)V
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.goalSelector net/minecraft/world/entity/ai/goal/GoalSelector
+        iconst 3
         new net/minecraft/world/entity/ai/goal/RandomStrollGoal
         dup
         aload 0
@@ -192,6 +201,25 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         getstatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
         aload 1
         invokevirtual net/minecraft/network/syncher/SynchedEntityData.set(net/minecraft/network/syncher/EntityDataAccessor,java/lang/Object)V
+
+        //this.setCanPickUpLoot(/* check for an IItemHandler on the ItemStack */);
+        aload 1
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        aconst_null
+        invokevirtual net/minecraftforge/common/capabilities/CapabilityProvider.getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional
+        aconst_null
+        invokevirtual net/minecraftforge/common/util/LazyOptional.orElse(java/lang/Object)java/lang/Object
+        checkcast net/minecraftforge/items/IItemHandler
+        ifnull skip1
+        iconst 1
+        goto skip2
+        skip1:
+        iconst 0
+        skip2:
+        aload 0
+        swap
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.setCanPickUpLoot(Z)V
+
         return
     }
 
@@ -229,13 +257,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
 
         aload 1
-        ldc "ItemAge"
-        aload 0
-        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.itemAge I
-        i2s
-        invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
-
-        aload 1
         ldc "Item"
         aload 0
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
@@ -245,6 +266,75 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/world/item/ItemStack.save(net/minecraft/nbt/CompoundTag)net/minecraft/nbt/CompoundTag
         invokevirtual net/minecraft/nbt/CompoundTag.put(java/lang/String,net/minecraft/nbt/Tag)net/minecraft/nbt/Tag
         pop
+        return
+    }
+
+    public aiStep()V {
+        aload 0
+        invokespecial net/minecraft/world/entity/PathfinderMob.aiStep()V
+
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getPickupReach()net/minecraft/core/Vec3i
+        astore 1
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        getfield net/minecraft/world/level/Level.isClientSide boolean
+        ifne skip1
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.canPickUpLoot()Z
+        ifeq skip1
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.isAlive()Z
+        ifeq skip1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.dead Z
+        ifne skip1
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        ldc io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getBoundingBox()net/minecraft/world/phys/AABB
+        aload 1
+        invokevirtual net/minecraft/core/Vec3i.getX()I
+        i2d
+        aload 1
+        invokevirtual net/minecraft/core/Vec3i.getY()I
+        i2d
+        aload 1
+        invokevirtual net/minecraft/core/Vec3i.getZ()I
+        i2d
+        invokevirtual net/minecraft/world/phys/AABB.inflate(D,D,D)net/minecraft/world/phys/AABB
+        invokevirtual net/minecraft/world/level/Level.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB)java/util/List
+        invokeinterface java/util/List.iterator()java/util/Iterator
+        astore 2
+
+        loop:
+        aload 2
+        invokeinterface java/util/Iterator.hasNext()Z
+        ifeq skip1
+        aload 2
+        invokeinterface java/util/Iterator.next()java/lang/Object
+        checkcast io/github/lukebemish/lesslazyitems/WalkingItemEntity
+        astore 3
+
+        aload 3
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.isRemoved()Z
+        ifne skip2
+        aload 3
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        ifne skip2
+
+        aload 0
+        aload 3
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.pickUpItem(io/github/lukebemish/lesslazyitems/WalkingItemEntity)V
+
+        skip2:
+        goto loop
+
+        skip1:
         return
     }
 
@@ -258,12 +348,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         ldc "Age"
         invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
         putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.age I
-
-        aload 0
-        aload 1
-        ldc "ItemAge"
-        invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
-        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.itemAge I
 
         aload 1
         ldc "Item"
@@ -387,28 +471,125 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         dup
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.spawnAtLocation(net/minecraft/world/item/ItemStack)net/minecraft/world/entity/item/ItemEntity
-        dup
-        ifnull passed
-        dup
-        getfield net/minecraft/world/entity/item/ItemEntity.lifespan I
-        aload 0
-        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.itemAge I
-        isub
-        dup
-        ifle skip1
-        putfield net/minecraft/world/entity/item/ItemEntity.lifespan I
-        goto out
-
-        skip1:
         pop
-        iconst 1
-        putfield net/minecraft/world/entity/item/ItemEntity.lifespan I
+        return
+    }
 
-        out:
+    protected pickUpItem(net/minecraft/world/entity/item/ItemEntity)V {
+        aload 1
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.getItem()net/minecraft/world/item/ItemStack
+        astore 5
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        aconst_null
+        invokevirtual net/minecraftforge/common/capabilities/CapabilityProvider.getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional
+        aconst_null
+        invokevirtual net/minecraftforge/common/util/LazyOptional.orElse(java/lang/Object)java/lang/Object
+        checkcast net/minecraftforge/items/IItemHandler
+        dup
+        astore 2
+        ifnull break
+        aload 2
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
+        istore 4
+        iconst 0
+        istore 3
+
+        loop:
+        iload 3
+        iload 4
+        if_icmpge break
+
+        aload 2
+        iload 3
+        aload 5
+        iconst 0
+        invokeinterface net/minecraftforge/items/IItemHandler.insertItem(I,net/minecraft/world/item/ItemStack,Z)net/minecraft/world/item/ItemStack
+        astore 6
+        aload 6
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        ifeq discard
+        aload 6
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        if_icmpeq skip
+        aload 0
+        aload 6
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.spawnAtLocation(net/minecraft/world/item/ItemStack)net/minecraft/world/entity/item/ItemEntity
+        pop
+
+        discard:
+        aload 1
+        invokevirtual net/minecraft/world/entity/item/ItemEntity.discard()V
         return
 
-        passed:
+        skip:
+
+        iinc 3[1]
+        goto loop
+
+        break:
+        return
+    }
+
+    protected pickUpItem(io/github/lukebemish/lesslazyitems/WalkingItemEntity)V {
+        aload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        astore 5
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        aconst_null
+        invokevirtual net/minecraftforge/common/capabilities/CapabilityProvider.getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional
+        aconst_null
+        invokevirtual net/minecraftforge/common/util/LazyOptional.orElse(java/lang/Object)java/lang/Object
+        checkcast net/minecraftforge/items/IItemHandler
+        dup
+        astore 2
+        ifnull break
+        aload 2
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
+        istore 4
+        iconst 0
+        istore 3
+
+        loop:
+        iload 3
+        iload 4
+        if_icmpge break
+
+        aload 2
+        iload 3
+        aload 5
+        iconst 0
+        invokeinterface net/minecraftforge/items/IItemHandler.insertItem(I,net/minecraft/world/item/ItemStack,Z)net/minecraft/world/item/ItemStack
+        astore 6
+        aload 6
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        ifeq discard
+        aload 6
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        if_icmpeq skip
+        aload 0
+        aload 6
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.spawnAtLocation(net/minecraft/world/item/ItemStack)net/minecraft/world/entity/item/ItemEntity
         pop
+
+        discard:
+        aload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.discard()V
+        return
+
+        skip:
+
+        iinc 3[1]
+        goto loop
+
+        break:
         return
     }
 }

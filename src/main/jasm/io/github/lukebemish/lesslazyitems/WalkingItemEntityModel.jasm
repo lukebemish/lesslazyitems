@@ -1,22 +1,22 @@
-public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends net/minecraft/client/model/entity/EntityModel {
+public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends net/minecraft/client/model/EntityModel {
     private final rightLeg net/minecraft/client/model/geom/ModelPart
     private final leftLeg net/minecraft/client/model/geom/ModelPart
 
     public <init>(net/minecraft/client/model/geom/ModelPart)V {
         aload 0
-        invokespecial net/minecraft/client/model/entity/EntityModel.<init>()V
+        invokespecial net/minecraft/client/model/EntityModel.<init>()V
 
         aload 0
         aload 1
         ldc "right_leg"
         invokevirtual net/minecraft/client/model/geom/ModelPart.getChild(java/lang/String)net/minecraft/client/model/geom/ModelPart
-        putfield net/minecraft/client/model/ChickenModel.rightLeg net/minecraft/client/model/geom/ModelPart
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.rightLeg net/minecraft/client/model/geom/ModelPart
 
         aload 0
         aload 1
         ldc "left_leg"
         invokevirtual net/minecraft/client/model/geom/ModelPart.getChild(java/lang/String)net/minecraft/client/model/geom/ModelPart
-        putfield net/minecraft/client/model/ChickenModel.leftLeg net/minecraft/client/model/geom/ModelPart
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.leftLeg net/minecraft/client/model/geom/ModelPart
 
         return
     }
@@ -70,5 +70,63 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityModel extends n
         invokestatic net/minecraft/client/model/geom/builders/LayerDefinition.create(net/minecraft/client/model/geom/builders/MeshDefinition,I,I)net/minecraft/client/model/geom/builders/LayerDefinition
         areturn
         // Basically copied stuff from the chicken here, since I'm literally using the same leg setup.
+    }
+
+    public renderToBuffer(com/mojang/blaze3d/vertex/PoseStack,com/mojang/blaze3d/vertex/VertexConsumer,I,I,F,F,F,F)V {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.rightLeg net/minecraft/client/model/geom/ModelPart
+        aload 1
+        aload 2
+        iload 3
+        iload 4
+        fload 5
+        fload 6
+        fload 7
+        fload 8
+        invokevirtual net/minecraft/client/model/geom/ModelPart.render(com/mojang/blaze3d/vertex/PoseStack,com/mojang/blaze3d/vertex/VertexConsumer,I,I,F,F,F,F)V
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.leftLeg net/minecraft/client/model/geom/ModelPart
+        aload 1
+        aload 2
+        iload 3
+        iload 4
+        fload 5
+        fload 6
+        fload 7
+        fload 8
+        invokevirtual net/minecraft/client/model/geom/ModelPart.render(com/mojang/blaze3d/vertex/PoseStack,com/mojang/blaze3d/vertex/VertexConsumer,I,I,F,F,F,F)V
+
+        return
+    }
+
+    public setupAnim(net/minecraft/world/entity/Entity,F,F,F,F,F)V {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.rightLeg net/minecraft/client/model/geom/ModelPart
+        fload 2
+        ldc 0.6662
+        fmul
+        invokestatic net/minecraft/util/Mth.cos(F)F
+        ldc 1.4
+        fmul
+        fload 3
+        fmul
+        putfield net/minecraft/client/model/geom/ModelPart.xRot F
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntityModel.leftLeg net/minecraft/client/model/geom/ModelPart
+        fload 2
+        ldc 0.6662
+        fmul
+        ldc 3.1415927
+        fadd
+        invokestatic net/minecraft/util/Mth.cos(F)F
+        ldc 1.4
+        fmul
+        fload 3
+        fmul
+        putfield net/minecraft/client/model/geom/ModelPart.xRot F
+
+        return
     }
 }
