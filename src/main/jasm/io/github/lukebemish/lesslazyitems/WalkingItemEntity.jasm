@@ -370,7 +370,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         aload 0
         aload 1
         ldc "Undying"
-        invokevirtual net/minecraft/nbt/CompoundTag.getBoolean(java/lang/String)S
+        invokevirtual net/minecraft/nbt/CompoundTag.getBoolean(java/lang/String)Z
         putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.undying Z
 
         aload 1

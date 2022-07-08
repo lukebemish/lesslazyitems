@@ -187,6 +187,8 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokespecial net/minecraft/world/item/Item$Properties.<init>()V
         getstatic net/minecraft/world/item/CreativeModeTab.TAB_TOOLS net/minecraft/world/item/CreativeModeTab
         invokevirtual net/minecraft/world/item/Item$Properties.tab(net/minecraft/world/item/CreativeModeTab)net/minecraft/world/item/Item$Properties
+        iconst 1
+        invokevirtual net/minecraft/world/item/Item$Properties.stacksTo(I)net/minecraft/world/item/Item$Properties
         iconst 0
         invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties,Z)V
         areturn
@@ -200,6 +202,8 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokespecial net/minecraft/world/item/Item$Properties.<init>()V
         getstatic net/minecraft/world/item/CreativeModeTab.TAB_TOOLS net/minecraft/world/item/CreativeModeTab
         invokevirtual net/minecraft/world/item/Item$Properties.tab(net/minecraft/world/item/CreativeModeTab)net/minecraft/world/item/Item$Properties
+        iconst 1
+        invokevirtual net/minecraft/world/item/Item$Properties.stacksTo(I)net/minecraft/world/item/Item$Properties
         iconst 1
         invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties,Z)V
         areturn
