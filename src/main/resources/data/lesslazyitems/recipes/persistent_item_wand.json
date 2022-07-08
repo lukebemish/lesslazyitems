@@ -9,15 +9,12 @@
     },
     "D": {
       "item": "minecraft:echo_shard"
-    },
-    "G": {
-      "item": "minecraft:glowstone"
     }
   },
   "pattern": [
-    "GDG",
-    " Y ",
-    " # "
+    "D",
+    "Y",
+    "#"
   ],
   "result": {
     "item": "lesslazyitems:persistent_item_wand"
