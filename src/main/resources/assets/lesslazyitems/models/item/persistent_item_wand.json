@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "lesslazyitems:item/persistent_item_wand"
+  }
+}

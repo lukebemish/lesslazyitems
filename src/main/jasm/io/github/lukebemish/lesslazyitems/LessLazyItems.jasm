@@ -8,6 +8,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
     public final static ENTITIES net/minecraftforge/registries/DeferredRegister
 
     public final static ITEM_WAND net/minecraftforge/registries/RegistryObject
+    public final static PERSISTENT_ITEM_WAND net/minecraftforge/registries/RegistryObject
     public final static WALKING_ITEM net/minecraftforge/registries/RegistryObject
 
     public final static COLLECTORS net/minecraft/tags/TagKey
@@ -70,6 +71,24 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         }
         invokeinterface net/minecraftforge/eventbus/api/IEventBus.addListener(java/util/function/Consumer)V
 
+        aload 1
+        invokedynamic accept()java/util/function/Consumer {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (java/lang/Object)V,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda3(net/minecraftforge/fml/event/lifecycle/FMLCommonSetupEvent)V,
+                (net/minecraftforge/fml/event/lifecycle/FMLCommonSetupEvent)V
+            ]
+        }
+        invokeinterface net/minecraftforge/eventbus/api/IEventBus.addListener(java/util/function/Consumer)V
+
         return
     }
 
@@ -107,6 +126,26 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         }
         invokevirtual net/minecraftforge/registries/DeferredRegister.register(java/lang/String,java/util/function/Supplier)net/minecraftforge/registries/RegistryObject
         putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEM_WAND net/minecraftforge/registries/RegistryObject
+
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEMS net/minecraftforge/registries/DeferredRegister
+        ldc "persistent_item_wand"
+        invokedynamic get()java/util/function/Supplier {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                ()java/lang/Object,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda4()net/minecraft/world/item/Item,
+                ()net/minecraft/world/item/Item
+            ]
+        }
+        invokevirtual net/minecraftforge/registries/DeferredRegister.register(java/lang/String,java/util/function/Supplier)net/minecraftforge/registries/RegistryObject
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.PERSISTENT_ITEM_WAND net/minecraftforge/registries/RegistryObject
 
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ENTITIES net/minecraftforge/registries/DeferredRegister
         ldc "walking_item"
@@ -148,9 +187,21 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokespecial net/minecraft/world/item/Item$Properties.<init>()V
         getstatic net/minecraft/world/item/CreativeModeTab.TAB_TOOLS net/minecraft/world/item/CreativeModeTab
         invokevirtual net/minecraft/world/item/Item$Properties.tab(net/minecraft/world/item/CreativeModeTab)net/minecraft/world/item/Item$Properties
-        //sipush 256
-        //invokevirtual net/minecraft/world/item/Item$Properties.durability(int)net/minecraft/world/item/Item$Properties
-        invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties)V
+        iconst 0
+        invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties,Z)V
+        areturn
+    }
+
+    public static lambda4()net/minecraft/world/item/Item {
+        new io/github/lukebemish/lesslazyitems/ItemWandItem
+        dup
+        new net/minecraft/world/item/Item$Properties
+        dup
+        invokespecial net/minecraft/world/item/Item$Properties.<init>()V
+        getstatic net/minecraft/world/item/CreativeModeTab.TAB_TOOLS net/minecraft/world/item/CreativeModeTab
+        invokevirtual net/minecraft/world/item/Item$Properties.tab(net/minecraft/world/item/CreativeModeTab)net/minecraft/world/item/Item$Properties
+        iconst 1
+        invokespecial io/github/lukebemish/lesslazyitems/ItemWandItem.<init>(net/minecraft/world/item/Item$Properties,Z)V
         areturn
     }
 
@@ -190,6 +241,35 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokestatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.createAttributes()net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
         invokevirtual net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder.build()net/minecraft/world/entity/ai/attributes/AttributeSupplier
         invokevirtual net/minecraftforge/event/entity/EntityAttributeCreationEvent.put(net/minecraft/world/entity/EntityType, net/minecraft/world/entity/ai/attributes/AttributeSupplier)V
+
+        return
+    }
+
+    public static lambda3(net/minecraftforge/fml/event/lifecycle/FMLCommonSetupEvent)V {
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEM_WAND net/minecraftforge/registries/RegistryObject
+        invokevirtual net/minecraftforge/registries/RegistryObject.get()java/lang/Object
+        checkcast net/minecraft/world/item/Item
+
+        new io/github/lukebemish/lesslazyitems/ItemWandDispenserBehavior
+        dup
+        iconst 0
+        invokespecial io/github/lukebemish/lesslazyitems/ItemWandDispenserBehavior.<init>(Z)V
+
+        invokestatic net/minecraft/world/level/block/DispenserBlock.registerBehavior(net/minecraft/world/level/ItemLike,net/minecraft/core/dispenser/DispenseItemBehavior)V
+
+
+
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.PERSISTENT_ITEM_WAND net/minecraftforge/registries/RegistryObject
+        invokevirtual net/minecraftforge/registries/RegistryObject.get()java/lang/Object
+        checkcast net/minecraft/world/item/Item
+
+        new io/github/lukebemish/lesslazyitems/ItemWandDispenserBehavior
+        dup
+        iconst 1
+        invokespecial io/github/lukebemish/lesslazyitems/ItemWandDispenserBehavior.<init>(Z)V
+
+        invokestatic net/minecraft/world/level/block/DispenserBlock.registerBehavior(net/minecraft/world/level/ItemLike,net/minecraft/core/dispenser/DispenseItemBehavior)V
+
 
         return
     }

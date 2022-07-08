@@ -342,4 +342,9 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer extend
         putstatic io/github/lukebemish/lesslazyitems/WalkingItemEntityRenderer.CHICKEN_LOCATION net/minecraft/resources/ResourceLocation
         return
     }
+
+    protected shouldShowName(net/minecraft/world/entity/LivingEntity)Z {
+        iconst 0
+        ireturn
+    }
 }

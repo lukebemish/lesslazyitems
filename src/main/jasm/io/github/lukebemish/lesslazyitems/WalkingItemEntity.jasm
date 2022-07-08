@@ -3,6 +3,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
 
     private age int
     public final bobOffs float
+    private undying Z
 
     public <init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V {
         aload 0
@@ -31,7 +32,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         return
     }
 
-    public <init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V {
+    public <init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity,Z)V {
         aload 0
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
         invokeinterface java/util/function/Supplier.get()java/lang/Object
@@ -47,6 +48,13 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         aload 2
         invokevirtual net/minecraft/world/entity/item/ItemEntity.discard()V
 
+        iload 3
+        ifeq out
+        aload 0
+        iconst -1
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.undying Z
+
+        out:
         return
     }
 
@@ -73,6 +81,18 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/world/level/Level.isClientSide()Z
         ifne skip1
 
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getName()net/minecraft/network/chat/Component
+        invokeinterface net/minecraft/network/chat/Component.getString()java/lang/String
+        invokestatic net/minecraft/ChatFormatting.stripFormatting(java/lang/String)java/lang/String
+        ldc "Animated"
+        invokevirtual java/lang/Object.equals(java/lang/Object)Z
+        ifne skip1
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.undying Z
+        ifne skip1
+
 
         new net/minecraft/core/BlockPos
         dup
@@ -95,14 +115,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
         ifne run1
 
-        /*aload 0
-        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
-        aload 1
-        invokeinterface net/minecraft/world/level/LevelReader.getBlockState(net/minecraft/core/BlockPos)net/minecraft/world/level/block/state/BlockState
-        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
-        invokevirtual net/minecraft/world/level/block/state/BlockState.is(net/minecraft/tags/TagKey)Z
-        ifne run1*/
-
         aload 0
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.age I
         ldc 1200
@@ -118,6 +130,11 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         skip1:
 
         return
+    }
+
+    public causeFallDamage(F,F,net/minecraft/world/damagesource/DamageSource)Z {
+        iconst 0
+        ireturn
     }
 
     public static <clinit>()V {
@@ -179,11 +196,6 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         aload 0
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
         areturn
-    }
-
-    public canBeLeashed(net/minecraft/world/entity/player/Player)Z {
-        iconst 0
-        ireturn
     }
 
     public getItem()net/minecraft/world/item/ItemStack {
@@ -255,6 +267,12 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.age I
         i2s
         invokevirtual net/minecraft/nbt/CompoundTag.putShort(java/lang/String,short)V
+
+        aload 1
+        ldc "Undying"
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.undying Z
+        invokevirtual net/minecraft/nbt/CompoundTag.putBoolean(java/lang/String,Z)V
 
         aload 1
         ldc "Item"
@@ -349,6 +367,12 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokevirtual net/minecraft/nbt/CompoundTag.getShort(java/lang/String)S
         putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.age I
 
+        aload 0
+        aload 1
+        ldc "Undying"
+        invokevirtual net/minecraft/nbt/CompoundTag.getBoolean(java/lang/String)S
+        putfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.undying Z
+
         aload 1
         ldc "Item"
         invokevirtual net/minecraft/nbt/CompoundTag.getCompound(java/lang/String)net/minecraft/nbt/CompoundTag
@@ -378,14 +402,8 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         pop
         aload 0
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.getItem()net/minecraft/world/item/ItemStack
-        invokevirtual net/minecraft/world/item/ItemStack.getDescriptionId()java/lang/String
-        invokestatic* net/minecraft/network/chat/Component.translatable(java/lang/String)net/minecraft/network/chat/MutableComponent
+        invokevirtual net/minecraft/world/item/ItemStack.getHoverName()net/minecraft/network/chat/Component
         areturn
-    }
-
-    public isAttackable()Z {
-        iconst 0
-        ireturn
     }
 
     public onSyncedDataUpdated(net/minecraft/network/syncher/EntityDataAccessor)V {
@@ -444,7 +462,7 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokestatic net/minecraft/world/entity/Mob.createMobAttributes()net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
 
         getstatic net/minecraft/world/entity/ai/attributes/Attributes.MAX_HEALTH net/minecraft/world/entity/ai/attributes/Attribute
-        bipush 10
+        bipush 1
         i2d
         invokevirtual net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder.add(net/minecraft/world/entity/ai/attributes/Attribute,D)net/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder
 
@@ -590,6 +608,42 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         goto loop
 
         break:
+        return
+    }
+
+    public animateHurt()V {
+        return
+    }
+
+    public tickDeath()V {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        invokevirtual net/minecraft/world/level/Level.isClientSide()Z
+        ifne skip
+
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/WalkingItemEntity.level net/minecraft/world/level/Level
+        aload 0
+        bipush 60
+        invokevirtual net/minecraft/world/level/Level.broadcastEntityEvent(net/minecraft/world/entity/Entity,B)V
+        aload 0
+        getstatic net/minecraft/world/entity/Entity$RemovalReason.KILLED net/minecraft/world/entity/Entity$RemovalReason
+        invokevirtual net/minecraft/world/entity/LivingEntity.remove(net/minecraft/world/entity/Entity$RemovalReason)V
+
+        skip:
+        return
+    }
+
+    public handleEntityEvent(B)V {
+        iload 1
+        ldc 60
+        if_icmpeq skip
+
+        aload 0
+        iload 1
+        invokespecial net/minecraft/world/entity/PathfinderMob.handleEntityEvent(B)V
+
+        skip:
         return
     }
 }

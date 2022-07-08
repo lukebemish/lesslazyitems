@@ -1,12 +1,19 @@
 public class io/github/lukebemish/lesslazyitems/ItemWandItem extends net/minecraft/world/item/Item {
-    public <init>(net/minecraft/world/item/Item$Properties)V {
+
+    private final persistent Z
+
+    public <init>(net/minecraft/world/item/Item$Properties,Z)V {
         aload 0
         aload 1
         invokespecial net/minecraft/world/item/Item.<init>(net/minecraft/world/item/Item$Properties)V
+        aload 0
+        iload 2
+        putfield io/github/lukebemish/lesslazyitems/ItemWandItem.persistent Z
+
         return
     }
 
-    public static convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V {
+    public static convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos,Z)V {
         aload 0
         ldc net/minecraft/world/entity/item/ItemEntity
         aload 1
@@ -36,17 +43,17 @@ public class io/github/lukebemish/lesslazyitems/ItemWandItem extends net/minecra
         invokeinterface net/minecraft/world/level/EntityGetter.getEntitiesOfClass(java/lang/Class,net/minecraft/world/phys/AABB,java/util/function/Predicate)java/util/List
 
         invokeinterface java/lang/Iterable.iterator()java/util/Iterator
-        astore 2
+        astore 3
         loop:
-        aload 2
+        aload 3
         invokeinterface java/util/Iterator.hasNext()Z
         ifeq break
-        aload 2
+        aload 3
         invokeinterface java/util/Iterator.next()java/lang/Object
         checkcast net/minecraft/world/entity/item/ItemEntity
-        astore 3
+        astore 5
 
-        aload 3
+        aload 5
         invokevirtual net/minecraft/world/entity/item/ItemEntity.position()net/minecraft/world/phys/Vec3
         astore 4
 
@@ -55,8 +62,9 @@ public class io/github/lukebemish/lesslazyitems/ItemWandItem extends net/minecra
         dup
         dup
         aload 0
-        aload 3
-        invokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntity.<init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity)V
+        aload 5
+        iload 2
+        invokespecial io/github/lukebemish/lesslazyitems/WalkingItemEntity.<init>(net/minecraft/world/level/Level,net/minecraft/world/entity/item/ItemEntity,Z)V
         aload 4
         invokevirtual io/github/lukebemish/lesslazyitems/WalkingItemEntity.setPos(net/minecraft/world/phys/Vec3)V
 
@@ -89,7 +97,9 @@ public class io/github/lukebemish/lesslazyitems/ItemWandItem extends net/minecra
         aload 2
         aload 1
         invokevirtual net/minecraft/world/item/context/UseOnContext.getClickedPos()net/minecraft/core/BlockPos
-        invokestatic io/github/lukebemish/lesslazyitems/ItemWandItem.convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos)V
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ItemWandItem.persistent Z
+        invokestatic io/github/lukebemish/lesslazyitems/ItemWandItem.convertNearbyItems(net/minecraft/world/level/Level,net/minecraft/core/BlockPos,Z)V
 
         skip:
 

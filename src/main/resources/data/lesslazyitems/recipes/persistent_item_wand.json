@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "Y": {
+      "item": "minecraft:name_tag"
+    },
+    "D": {
+      "item": "minecraft:echo_shard"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    }
+  },
+  "pattern": [
+    "GDG",
+    " Y ",
+    " # "
+  ],
+  "result": {
+    "item": "lesslazyitems:persistent_item_wand"
+  }
+}
