@@ -5,6 +5,8 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
     public final bobOffs float
     private undying Z
 
+    private static final ITEM_PICKUP_REACH net/minecraft/core/Vec3i
+
     public <init>(net/minecraft/world/entity/EntityType,net/minecraft/world/level/Level)V {
         aload 0
         aload 1
@@ -143,7 +145,20 @@ public class io/github/lukebemish/lesslazyitems/WalkingItemEntity extends net/mi
         invokestatic net/minecraft/network/syncher/SynchedEntityData.defineId(java/lang/Class,net/minecraft/network/syncher/EntityDataSerializer)net/minecraft/network/syncher/EntityDataAccessor
         putstatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.DATA_ITEM net/minecraft/network/syncher/EntityDataAccessor
 
+        new net/minecraft/core/Vec3i
+        dup
+        iconst 2
+        iconst 1
+        iconst 2
+        invokespecial net/minecraft/core/Vec3i.<init>(I,I,I)V
+        putstatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.ITEM_PICKUP_REACH net/minecraft/core/Vec3i
+
         return
+    }
+
+    protected getPickupReach()net/minecraft/core/Vec3i {
+        getstatic io/github/lukebemish/lesslazyitems/WalkingItemEntity.ITEM_PICKUP_REACH net/minecraft/core/Vec3i
+        areturn
     }
 
     protected registerGoals()V {
