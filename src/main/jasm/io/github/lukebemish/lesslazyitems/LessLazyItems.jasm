@@ -118,7 +118,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokestatic com/mojang/logging/LogUtils.getLogger()org/slf4j/Logger
         putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.LOGGER org/slf4j/Logger
 
-        getstatic net/minecraftforge/registries/ForgeRegistries.ENTITIES net/minecraftforge/registries/IForgeRegistry
+        getstatic net/minecraftforge/registries/ForgeRegistries.ENTITY_TYPES net/minecraftforge/registries/IForgeRegistry
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.MODID java/lang/String
         invokestatic net/minecraftforge/registries/DeferredRegister.create(net/minecraftforge/registries/IForgeRegistry,java/lang/String)net/minecraftforge/registries/DeferredRegister
         putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ENTITIES net/minecraftforge/registries/DeferredRegister
@@ -236,7 +236,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         bipush 15 swap aastore dup
         getstatic net/minecraft/world/item/Items.YELLOW_SHULKER_BOX net/minecraft/world/item/Item
         bipush 16 swap aastore
-        invokestatic java/util/Set.of([java/lang/Object)java/util/Set
+        invokestatic* java/util/Set.of([java/lang/Object)java/util/Set
         putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_ITEMS java/util/Set
 
         new net/minecraft/resources/ResourceLocation
@@ -351,7 +351,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
     public static synthetic lambda5(net/minecraftforge/event/AttachCapabilitiesEvent)V {
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_ITEMS java/util/Set
         aload 0
-        invokevirtual net/minecraftforge/evnet/AttachCapabilitiesEvent.getObject()java/lang/Object
+        invokevirtual net/minecraftforge/event/AttachCapabilitiesEvent.getObject()java/lang/Object
         checkcast net/minecraft/world/item/ItemStack
         dup astore 1
         invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item

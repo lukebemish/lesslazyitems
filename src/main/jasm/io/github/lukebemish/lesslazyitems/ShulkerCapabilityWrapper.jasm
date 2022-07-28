@@ -1,4 +1,4 @@
-public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper implements net/minecraftforge/items/IItemHandlerModifiable,net/minecraftforge/common/capabilities/ICapabilityProvider {
+public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper implements net/minecraftforge/items/IItemHandler,net/minecraftforge/common/capabilities/ICapabilityProvider {
     private final stack net/minecraft/world/item/ItemStack
     private final holder net/minecraftforge/common/util/LazyOptional
     private cachedTag net/minecraft/nbt/CompoundTag
@@ -74,7 +74,7 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
         astore 4
         // item list
 
-        aload 1
+        iload 1
         invokevirtual net/minecraft/core/NonNullList.get(I)java/lang/Object
         checkcast net/minecraft/world/item/ItemStack
         astore 5
@@ -253,8 +253,8 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
 
     protected validateSlotIndex(I)V {
         iload 1
-        dup
         iflt error
+        iload 1
         aload 0
         invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getSlots()I
         if_icmpge error
@@ -290,7 +290,7 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
     public isItemValid(I,net/minecraft/world/item/ItemStack)Z {
         aload 2
         invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
-        invokevirtual net/minecraft/world/item/Item.canFitInsizeContainerItems()Z
+        invokevirtual net/minecraft/world/item/Item.canFitInsideContainerItems()Z
         ireturn
     }
 
@@ -324,7 +324,7 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
         aload 0
         invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
         getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
-        invokestatic net/minecraft/core/NonNullList.withSize(I,net/minecraft/world/item/ItemStack)net/minecraft/core/NonNullList
+        invokestatic net/minecraft/core/NonNullList.withSize(I,java/lang/Object)net/minecraft/core/NonNullList
         astore 2
         aload 1
         ifnull skip1
@@ -335,7 +335,7 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
         ifeq skip1
         aload 1
         aload 2
-        invokestatic net/minecraft/world/ContainerHelper.loadAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/world/item/ItemStack)V
+        invokestatic net/minecraft/world/ContainerHelper.loadAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/core/NonNullList)V
         skip1:
         aload 0
         aload 1
@@ -363,16 +363,30 @@ public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper impleme
         aload 2
         skip2:
         aload 1
-        invokestatic net/minecraft/world/ContianerHelper.saveAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/core/NonNullList)net/minecraft/nbt/CompoundTag
+        invokestatic net/minecraft/world/ContainerHelper.saveAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/core/NonNullList)net/minecraft/nbt/CompoundTag
         dup
         astore 3
         invokestatic net/minecraft/world/item/BlockItem.setBlockEntityData(net/minecraft/world/item/ItemStack,net/minecraft/world/level/block/entity/BlockEntityType,net/minecraft/nbt/CompoundTag)V
         aload 3
         putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.cachedTag net/minecraft/nbt/CompoundTag
+        return
     }
 
     private synthetic lambda0()net/minecraftforge/items/IItemHandler {
         aload 0
+        areturn
+    }
+
+    public getCapability(net/minecraftforge/common/capabilities/Capability,net/minecraft/core/Direction)net/minecraftforge/common/util/LazyOptional {
+        aload 1
+        getstatic net/minecraftforge/items/CapabilityItemHandler.ITEM_HANDLER_CAPABILITY net/minecraftforge/common/capabilities/Capability
+        if_acmpne out
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.holder net/minecraftforge/common/util/LazyOptional
+        areturn
+
+        out:
+        invokestatic net/minecraftforge/common/util/LazyOptional.empty()net/minecraftforge/common/util/LazyOptional
         areturn
     }
 }
