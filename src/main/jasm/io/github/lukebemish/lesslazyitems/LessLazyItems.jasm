@@ -13,6 +13,9 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
 
     public final static COLLECTORS net/minecraft/tags/TagKey
 
+    public final static SHULKER_ITEMS java/util/Set
+    public final static SHULKER_CAP_RL net/minecraft/resources/ResourceLocation
+
     public <init>()V {
         aload 0
         invokespecial java/lang/Object.<init>()V
@@ -88,6 +91,25 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
             ]
         }
         invokeinterface net/minecraftforge/eventbus/api/IEventBus.addListener(java/util/function/Consumer)V
+
+        getstatic net/minecraftforge/common/MinecraftForge.EVENT_BUS net/minecraftforge/eventbus/api/IEventBus
+        ldc net/minecraft/world/item/ItemStack
+        invokedynamic accept()java/util/function/Consumer {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                (java/lang/Object)V,
+                invokestatic io/github/lukebemish/lesslazyitems/LessLazyItems.lambda5(net/minecraftforge/event/AttachCapabilitiesEvent)V,
+                (net/minecraftforge/event/AttachCapabilitiesEvent)V
+            ]
+        }
+        invokeinterface net/minecraftforge/eventbus/api/IEventBus.addGenericListener(java/lang/Class,java/util/function/Consumer)V
 
         return
     }
@@ -176,10 +198,58 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokestatic net/minecraft/tags/BlockTags.create(net/minecraft/resources/ResourceLocation)net/minecraft/tags/TagKey
         putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.COLLECTORS net/minecraft/tags/TagKey
 
+        // Shulker set
+        bipush 17
+        anewarray net/minecraft/world/item/Item
+        dup
+        getstatic net/minecraft/world/item/Items.SHULKER_BOX net/minecraft/world/item/Item
+        iconst 0 swap aastore dup
+        getstatic net/minecraft/world/item/Items.BLACK_SHULKER_BOX net/minecraft/world/item/Item
+        iconst 1 swap aastore dup
+        getstatic net/minecraft/world/item/Items.BLUE_SHULKER_BOX net/minecraft/world/item/Item
+        iconst 2 swap aastore dup
+        getstatic net/minecraft/world/item/Items.BROWN_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 3 swap aastore dup
+        getstatic net/minecraft/world/item/Items.CYAN_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 4 swap aastore dup
+        getstatic net/minecraft/world/item/Items.GRAY_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 5 swap aastore dup
+        getstatic net/minecraft/world/item/Items.GREEN_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 6 swap aastore dup
+        getstatic net/minecraft/world/item/Items.LIGHT_BLUE_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 7 swap aastore dup
+        getstatic net/minecraft/world/item/Items.LIGHT_GRAY_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 8 swap aastore dup
+        getstatic net/minecraft/world/item/Items.LIME_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 9 swap aastore dup
+        getstatic net/minecraft/world/item/Items.MAGENTA_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 10 swap aastore dup
+        getstatic net/minecraft/world/item/Items.ORANGE_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 11 swap aastore dup
+        getstatic net/minecraft/world/item/Items.PINK_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 12 swap aastore dup
+        getstatic net/minecraft/world/item/Items.PURPLE_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 13 swap aastore dup
+        getstatic net/minecraft/world/item/Items.RED_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 14 swap aastore dup
+        getstatic net/minecraft/world/item/Items.WHITE_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 15 swap aastore dup
+        getstatic net/minecraft/world/item/Items.YELLOW_SHULKER_BOX net/minecraft/world/item/Item
+        bipush 16 swap aastore
+        invokestatic java/util/Set.of([java/lang/Object)java/util/Set
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_ITEMS java/util/Set
+
+        new net/minecraft/resources/ResourceLocation
+        dup
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.MODID java/lang/String
+        ldc "shulker_capability"
+        invokespecial net/minecraft/resources/ResourceLocation.<init>(java/lang/String,java/lang/String)V
+        putstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_CAP_RL net/minecraft/resources/ResourceLocation
+
         return
     }
 
-    public static lambda0()net/minecraft/world/item/Item {
+    public static synthetic lambda0()net/minecraft/world/item/Item {
         new io/github/lukebemish/lesslazyitems/ItemWandItem
         dup
         new net/minecraft/world/item/Item$Properties
@@ -194,7 +264,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         areturn
     }
 
-    public static lambda4()net/minecraft/world/item/Item {
+    public static synthetic lambda4()net/minecraft/world/item/Item {
         new io/github/lukebemish/lesslazyitems/ItemWandItem
         dup
         new net/minecraft/world/item/Item$Properties
@@ -209,7 +279,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         areturn
     }
 
-    public static lambda1()net/minecraft/world/entity/EntityType {
+    public static synthetic lambda1()net/minecraft/world/entity/EntityType {
         invokedynamic create()net/minecraft/world/entity/EntityType$EntityFactory {
             invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
                 java/lang/invoke/MethodHandles$Lookup,
@@ -237,7 +307,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         areturn
     }
 
-    public static lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V {
+    public static synthetic lambda2(net/minecraftforge/event/entity/EntityAttributeCreationEvent)V {
         aload 0
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.WALKING_ITEM net/minecraftforge/registries/RegistryObject
         invokeinterface java/util/function/Supplier.get()java/lang/Object
@@ -249,7 +319,7 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         return
     }
 
-    public static lambda3(net/minecraftforge/fml/event/lifecycle/FMLCommonSetupEvent)V {
+    public static synthetic lambda3(net/minecraftforge/fml/event/lifecycle/FMLCommonSetupEvent)V {
         getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.ITEM_WAND net/minecraftforge/registries/RegistryObject
         invokevirtual net/minecraftforge/registries/RegistryObject.get()java/lang/Object
         checkcast net/minecraft/world/item/Item
@@ -275,6 +345,26 @@ public class io/github/lukebemish/lesslazyitems/LessLazyItems {
         invokestatic net/minecraft/world/level/block/DispenserBlock.registerBehavior(net/minecraft/world/level/ItemLike,net/minecraft/core/dispenser/DispenseItemBehavior)V
 
 
+        return
+    }
+
+    public static synthetic lambda5(net/minecraftforge/event/AttachCapabilitiesEvent)V {
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_ITEMS java/util/Set
+        aload 0
+        invokevirtual net/minecraftforge/evnet/AttachCapabilitiesEvent.getObject()java/lang/Object
+        checkcast net/minecraft/world/item/ItemStack
+        dup astore 1
+        invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+        invokeinterface java/util/Set.contains(java/lang/Object)Z
+        ifeq out
+        aload 0
+        getstatic io/github/lukebemish/lesslazyitems/LessLazyItems.SHULKER_CAP_RL net/minecraft/resources/ResourceLocation
+        new io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper
+        dup
+        aload 1
+        invokespecial io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.<init>(net/minecraft/world/item/ItemStack)V
+        invokevirtual net/minecraftforge/event/AttachCapabilitiesEvent.addCapability(net/minecraft/resources/ResourceLocation,net/minecraftforge/common/capabilities/ICapabilityProvider)V
+        out:
         return
     }
 }

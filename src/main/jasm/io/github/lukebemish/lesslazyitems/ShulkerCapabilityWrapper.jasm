@@ -1,0 +1,378 @@
+public class io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper implements net/minecraftforge/items/IItemHandlerModifiable,net/minecraftforge/common/capabilities/ICapabilityProvider {
+    private final stack net/minecraft/world/item/ItemStack
+    private final holder net/minecraftforge/common/util/LazyOptional
+    private cachedTag net/minecraft/nbt/CompoundTag
+    private itemStacksCache net/minecraft/core/NonNullList
+
+    public <init>(net/minecraft/world/item/ItemStack)V {
+        aload 0
+        invokespecial java/lang/Object.<init>()V
+
+        aload 0
+        aload 0
+        invokedynamic get(io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper)net/minecraftforge/common/util/NonNullSupplier {
+            invokestatic java/lang/invoke/LambdaMetafactory.metafactory(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodType,
+                java/lang/invoke/MethodHandle,
+                java/lang/invoke/MethodType,
+            )java/lang/invoke/CallSite
+            [
+                ()java/lang/Object,
+                invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.lambda0()net/minecraftforge/items/IItemHandler,
+                ()net/minecraftforge/items/IItemHandler
+            ]
+        }
+        invokestatic net/minecraftforge/common/util/LazyOptional.of(net/minecraftforge/common/util/NonNullSupplier)net/minecraftforge/common/util/LazyOptional
+        putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.holder net/minecraftforge/common/util/LazyOptional
+
+        aload 0
+        aload 1
+        putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.stack net/minecraft/world/item/ItemStack
+
+        return
+    }
+
+    public getSlots()I {
+        bipush 27
+        ireturn
+    }
+
+    public getStackInSlot(I)net/minecraft/world/item/ItemStack {
+        aload 0
+        iload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.validateSlotIndex(I)V
+
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getItemList()net/minecraft/core/NonNullList
+        iload 1
+        invokevirtual net/minecraft/core/NonNullList.get(I)java/lang/Object
+        checkcast net/minecraft/world/item/ItemStack
+        areturn
+    }
+
+    public insertItem(I,net/minecraft/world/item/ItemStack,Z)net/minecraft/world/item/ItemStack {
+        aload 2
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        ifne empty
+
+        aload 0
+        iload 1
+        aload 2
+        invokeinterface net/minecraftforge/items/IItemHandler.isItemValid(I,net/minecraft/world/item/ItemStack)Z
+        ifeq original
+
+        aload 0
+        dup
+        iload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.validateSlotIndex(I)V
+
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getItemList()net/minecraft/core/NonNullList
+        dup
+        astore 4
+        // item list
+
+        aload 1
+        invokevirtual net/minecraft/core/NonNullList.get(I)java/lang/Object
+        checkcast net/minecraft/world/item/ItemStack
+        astore 5
+        // old stack
+
+        aload 0
+        iload 1
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlotLimit(I)I
+        aload 2
+        invokevirtual net/minecraft/world/item/ItemStack.getMaxStackSize()I
+        invokestatic java/lang/Math.min(I,I)I
+        istore 6
+        // limit
+
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        dup
+        istore 8
+        // is existing empty
+        ifne skip1
+        aload 2
+        aload 5
+        invokestatic net/minecraftforge/items/ItemHandlerHelper.canItemStacksStack(net/minecraft/world/item/ItemStack,net/minecraft/world/item/ItemStack)Z
+        ifeq original
+
+        iload 6
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        isub
+        istore 6
+
+        skip1:
+
+        iload 6
+        ifle original
+
+        aload 2
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        iload 6
+        if_icmpgt skip3
+        iconst 0
+        goto skip4
+        skip3:
+        iconst 1
+        skip4:
+        istore 7
+        // limit reached
+
+        iload 3
+        ifne skip5
+        iload 8
+        ifeq skip6
+        aload 4
+        iload 1
+        iload 7
+        ifeq skip8
+        aload 2
+        iload 6
+        invokestatic net/minecraftforge/items/ItemHandlerHelper.copyStackWithSize(net/minecraft/world/item/ItemStack,I)net/minecraft/world/item/ItemStack
+        goto skip9
+        skip8:
+        aload 2
+        skip9:
+        invokevirtual net/minecraft/core/NonNullList.set(I,java/lang/Object)java/lang/Object
+        pop
+        goto skip7
+        skip6:
+        aload 5
+        iload 7
+        ifeq skip10
+        iload 6
+        goto skip11
+        skip10:
+        aload 2
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        skip11:
+        invokevirtual net/minecraft/world/item/ItemStack.grow(I)V
+        skip7:
+        aload 0
+        aload 4
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.setItemList(net/minecraft/core/NonNullList)V
+
+        skip5:
+        iload 7
+        ifeq empty
+        aload 2
+        dup
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        iload 6
+        isub
+        invokestatic net/minecraftforge/items/ItemHandlerHelper.copyStackWithSize(net/minecraft/world/item/ItemStack,I)net/minecraft/world/item/ItemStack
+        areturn
+        empty:
+        getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
+        areturn
+        original:
+        aload 2
+        areturn
+    }
+
+    public extractItem(I,I,Z)net/minecraft/world/item/ItemStack {
+        iload 2 //amount
+        ifeq empty
+
+        aload 0
+        dup
+        iload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.validateSlotIndex(I)V
+
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getItemList()net/minecraft/core/NonNullList
+        dup
+        astore 4
+        // item list
+
+        iload 1
+        invokevirtual net/minecraft/core/NonNullList.get(I)java/lang/Object
+        checkcast net/minecraft/world/item/ItemStack
+        dup
+        astore 5
+        // old stack
+
+        invokevirtual net/minecraft/world/item/ItemStack.isEmpty()Z
+        ifne empty
+
+        iload 2
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getMaxStackSize()I
+        invokestatic java/lang/Math.min(I,I)I
+        dup
+        istore 6 // num to extract
+
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        if_icmple skip1
+        iload 3
+        ifne skip2
+        aload 4
+        iload 1
+        getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/core/NonNullList.set(I,java/lang/Object)java/lang/Object
+        pop
+        aload 0
+        aload 4
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.setItemList(net/minecraft/core/NonNullList)V
+        aload 5
+        areturn
+        skip2:
+        aload 5
+        invokevirtual net/minecraft/world/item/ItemStack.copy()net/minecraft/world/item/ItemStack
+        areturn
+        skip1:
+        iload 3
+        ifne skip3
+        aload 0
+        aload 4
+        dup
+        iload 1
+        aload 5
+        dup
+        invokevirtual net/minecraft/world/item/ItemStack.getCount()I
+        iload 6
+        isub
+        invokestatic net/minecraftforge/items/ItemHandlerHelper.copyStackWithSize(net/minecraft/world/item/ItemStack,I)net/minecraft/world/item/ItemStack
+        invokevirtual net/minecraft/core/NonNullList.set(I,net/minecraft/world/item/ItemStack)net/minecraft/world/item/ItemStack
+        pop
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.setItemList(net/minecraft/core/NonNullList)V
+        skip3:
+        aload 5
+        iload 6
+        invokestatic net/minecraftforge/items/ItemHandlerHelper.copyStackWithSize(net/minecraft/world/item/ItemStack,I)net/minecraft/world/item/ItemStack
+        areturn
+        empty:
+        getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
+        areturn
+    }
+
+    protected validateSlotIndex(I)V {
+        iload 1
+        dup
+        iflt error
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getSlots()I
+        if_icmpge error
+        return
+
+        error:
+        new java/lang/RuntimeException
+        dup
+        iload 1
+        aload 0
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.getSlots()I
+        invokedynamic makeConcatWithConstants(I,I)java/lang/String {
+            invokestatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants(
+                java/lang/invoke/MethodHandles$Lookup,
+                java/lang/String,
+                java/lang/invoke/MethodType,
+                java/lang/String,
+                [java/lang/Object)java/lang/invoke/CallSite
+            [
+                "Slot  not in valid range - [0,)"
+            ]
+        }
+        invokespecial java/lang/RuntimeException.<init>(java/lang/String)V
+
+        athrow
+    }
+
+    public getSlotLimit(I)I {
+        bipush 64
+        ireturn
+    }
+
+    public isItemValid(I,net/minecraft/world/item/ItemStack)Z {
+        aload 2
+        invokevirtual net/minecraft/world/item/ItemStack.getItem()net/minecraft/world/item/Item
+        invokevirtual net/minecraft/world/item/Item.canFitInsizeContainerItems()Z
+        ireturn
+    }
+
+    protected getItemList()net/minecraft/core/NonNullList {
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.stack net/minecraft/world/item/ItemStack
+        invokestatic net/minecraft/world/item/BlockItem.getBlockEntityData(net/minecraft/world/item/ItemStack)net/minecraft/nbt/CompoundTag
+        astore 1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.cachedTag net/minecraft/nbt/CompoundTag
+        ifnull skip1
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.cachedTag net/minecraft/nbt/CompoundTag
+        aload 1
+        invokevirtual java/lang/Object.equals(java/lang/Object)Z
+        ifne skip1
+        goto out
+        skip1:
+        aload 0
+        dup
+        aload 1
+        invokevirtual io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.refreshItemList(net/minecraft/nbt/CompoundTag)net/minecraft/core/NonNullList
+        putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.itemStacksCache net/minecraft/core/NonNullList
+        out:
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.itemStacksCache net/minecraft/core/NonNullList
+        areturn
+    }
+
+    protected refreshItemList(net/minecraft/nbt/CompoundTag)net/minecraft/core/NonNullList {
+        aload 0
+        invokeinterface net/minecraftforge/items/IItemHandler.getSlots()I
+        getstatic net/minecraft/world/item/ItemStack.EMPTY net/minecraft/world/item/ItemStack
+        invokestatic net/minecraft/core/NonNullList.withSize(I,net/minecraft/world/item/ItemStack)net/minecraft/core/NonNullList
+        astore 2
+        aload 1
+        ifnull skip1
+        aload 1
+        ldc "Items"
+        bipush 9
+        invokevirtual net/minecraft/nbt/CompoundTag.contains(java/lang/String,I)Z
+        ifeq skip1
+        aload 1
+        aload 2
+        invokestatic net/minecraft/world/ContainerHelper.loadAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/world/item/ItemStack)V
+        skip1:
+        aload 0
+        aload 1
+        putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.cachedTag net/minecraft/nbt/CompoundTag
+        aload 2
+        areturn
+    }
+
+    protected setItemList(net/minecraft/core/NonNullList)V {
+        aload 0
+        dup
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.stack net/minecraft/world/item/ItemStack
+        getstatic net/minecraft/world/level/block/entity/BlockEntityType.SHULKER_BOX net/minecraft/world/level/block/entity/BlockEntityType
+        aload 0
+        getfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.stack net/minecraft/world/item/ItemStack
+        invokestatic net/minecraft/world/item/BlockItem.getBlockEntityData(net/minecraft/world/item/ItemStack)net/minecraft/nbt/CompoundTag
+        dup
+        astore 2
+        ifnonnull skip1
+        new net/minecraft/nbt/CompoundTag
+        dup
+        invokespecial net/minecraft/nbt/CompoundTag.<init>()V
+        goto skip2
+        skip1:
+        aload 2
+        skip2:
+        aload 1
+        invokestatic net/minecraft/world/ContianerHelper.saveAllItems(net/minecraft/nbt/CompoundTag,net/minecraft/core/NonNullList)net/minecraft/nbt/CompoundTag
+        dup
+        astore 3
+        invokestatic net/minecraft/world/item/BlockItem.setBlockEntityData(net/minecraft/world/item/ItemStack,net/minecraft/world/level/block/entity/BlockEntityType,net/minecraft/nbt/CompoundTag)V
+        aload 3
+        putfield io/github/lukebemish/lesslazyitems/ShulkerCapabilityWrapper.cachedTag net/minecraft/nbt/CompoundTag
+    }
+
+    private synthetic lambda0()net/minecraftforge/items/IItemHandler {
+        aload 0
+        areturn
+    }
+}
