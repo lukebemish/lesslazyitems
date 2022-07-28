@@ -18,7 +18,6 @@ tasks.register('copyJasmOutput', Copy) {
     from "$buildDir/classes/jasm"
     into "$buildDir/classes/java"
 }
-
 copyJasmOutput.dependsOn assembleJasm
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
