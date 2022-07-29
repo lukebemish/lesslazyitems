@@ -18,3 +18,7 @@ _Less Lazy Items_ is written in JASM bytecode mnemonics. IDE support may be sket
 should allow for as much IDE support as possible on IntelliJ if the appropriate plugin is installed; I have not tested
 much with Eclipse or other IDEs. The mod builds through gradle; it should still build correctly even if some files are
 filled with apparent errors.
+
+*Note: from what testing I have done, this project will __not__ run correctly through eclipse. If you are using eclipse,
+you may need to run either by running the runClient gradle task or through the command line. I have not been able to
+find any easy way around this; you are best off running the proper gradle tasks directly.*
